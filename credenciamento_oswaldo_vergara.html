@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credenciamento — Comenda Oswaldo Vergara</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#1a1a2e;color:#1a1a1a;font-size:15px}
+.app{max-width:820px;margin:0 auto;padding:1rem}
+.card{background:#fff;border-radius:14px;border:1px solid #ddd;overflow:hidden;margin-bottom:1rem}
+.header-banner{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.header-banner .title{color:#fff;font-size:17px;font-weight:700;flex:1}
+.header-banner .subtitle{color:#a0b4cc;font-size:11px;margin-top:2px}
+.header-banner .cnt-row{display:flex;gap:8px;flex-wrap:wrap}
+.hcnt{background:rgba(255,255,255,.12);border-radius:8px;padding:5px 12px;font-size:13px;color:#c8d8e8}
+.hcnt strong{color:#fff;font-weight:700}
+.tabs{display:flex;border-bottom:1px solid #e0e0e0;background:#f9f9f9}
+.tab{padding:.7rem 1.5rem;font-size:13px;font-weight:500;color:#888;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none}
+.tab:hover{color:#0f3460}
+.tab.active{color:#0f3460;border-bottom:2px solid #0f3460;background:#fff}
+.pane{display:none}.pane.active{display:block}
+/* ALERTA PERSONAS NON GRATAS */
+.alert-bar{background:#FF1744;padding:.6rem 1.25rem;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#fff}
+.alert-bar .ai{font-size:18px}
+/* BUSCA */
+.sr{padding:.65rem 1.25rem;border-bottom:1px solid #eee;display:flex;gap:8px}
+.sr input{flex:1;font-size:14px;padding:0 12px;height:38px;border-radius:8px;border:1px solid #ccc;outline:none}
+.sr input:focus{border-color:#0f3460;box-shadow:0 0 0 3px rgba(15,52,96,.12)}
+.btn-add{height:38px;padding:0 16px;font-size:13px;font-weight:500;border-radius:8px;border:1px solid #ccc;background:#fff;color:#0f3460;cursor:pointer;white-space:nowrap}
+.btn-add:hover{background:#f0f4ff}
+.export-row{padding:.4rem 1.25rem 0;display:flex;justify-content:flex-end}
+.btn-exp{font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #ccc;background:#fff;color:#0f3460;cursor:pointer}
+/* LISTA */
+.list{max-height:520px;overflow-y:auto}
+/* GRUPOS */
+.grp-hdr{padding:.55rem 1.25rem;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.grp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.grp-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;flex:1}
+.grp-badge{font-size:11px;padding:2px 8px;border-radius:6px;border:1px solid #ddd;color:#888}
+/* LINHAS */
+.mr{display:flex;align-items:center;gap:8px;padding:.5rem 1.25rem;border-bottom:1px solid #f5f5f5}
+.mr:last-child{border-bottom:none}
+.mr.non-grata{background:#fff0f0 !important;border-left:4px solid #FF1744}
+.mi{flex:1;min-width:0}
+.mn{font-size:13px;color:#1a1a1a;font-weight:500}
+.mn.chk{text-decoration:line-through;color:#aaa}
+.mn.non-grata-name{color:#FF1744;font-weight:700}
+.cargo-txt{font-size:11px;color:#666;margin-top:2px;line-height:1.3}
+.pill{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;font-weight:600}
+.p16{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9}
+.p19{background:#E8F5E9;color:#2E7D32;border:1px solid #81C784}
+.pvoc{background:#F3E5F5;color:#6A1B9A;border:1px solid #CE93D8}
+.pnc{background:#FFF3E0;color:#E65100;border:1px solid #FFCC02}
+.pacomp{background:#f5f5f5;color:#666;border:1px solid #ddd}
+.palerta{background:#FF1744;color:#fff;border:1px solid #FF1744;animation:pulse 1.5s infinite}
+.pwi{background:#FFF8E1;color:#8B6914;border:1px solid #FFE082}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.ra{display:flex;gap:5px;flex-shrink:0}
+.btn{height:28px;padding:0 10px;font-size:12px;border-radius:7px;border:1px solid #ccc;background:#fff;color:#333;cursor:pointer}
+.btn:hover{background:#f5f5f5}
+.btn.bp{min-width:78px}
+.btn.done{background:#E8F5E9;border-color:#81C784;color:#2E7D32}
+.btn.ic{padding:0;width:28px;display:flex;align-items:center;justify-content:center}
+.btn.alerta-btn{background:#FF1744;border-color:#FF1744;color:#fff;font-weight:700;animation:pulse 1.5s infinite}
+.er{padding:.45rem 1.25rem;border-bottom:1px solid #f5f5f5}
+.ef{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ef input{font-size:12px;height:30px;border-radius:7px;border:1px solid #ccc;padding:0 8px;outline:none;flex:1;min-width:120px}
+/* ALERTA CERTIFICADO */
+.cert-alert{background:#FFF3E0;border-left:4px solid #FF6F00;padding:.4rem .8rem;border-radius:0 6px 6px 0;font-size:11px;color:#E65100;font-weight:600;margin-top:3px}
+.empty{padding:2rem;text-align:center;color:#aaa;font-size:14px}
+/* CERIMONIAL */
+.cer-filters{padding:.5rem 1.25rem;border-bottom:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.cf{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid #ccc;background:#fff;font-size:12px;font-weight:500;color:#888;cursor:pointer;user-select:none}
+.cf .cfd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cf.on{border-color:currentColor}
+.cl{padding:.5rem 1.25rem 1rem;max-height:510px;overflow-y:auto}
+.cer-group{margin-bottom:14px}
+.cer-gh{padding:.4rem 0 .3rem;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-bottom:2px solid currentColor;margin-bottom:5px}
+.cc{display:flex;align-items:center;gap:12px;padding:.75rem 1rem;border-radius:10px;margin-bottom:4px;border-left:4px solid transparent}
+.cd{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.cn{font-size:16px;font-weight:700;color:#1a1a1a}
+.cs2{font-size:11px;color:#666;margin-top:3px;line-height:1.4}
+.cc-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;white-space:nowrap;border:1px solid transparent}
+.cc-cert{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#FF6F00;color:#fff;flex-shrink:0;animation:pulse 1.5s infinite}
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:1.5rem;width:380px;max-width:95vw;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:1rem;color:#0f3460}
+.modal label{font-size:12px;color:#555;display:block;margin-bottom:3px;margin-top:10px}
+.modal input,.modal select{width:100%;font-size:13px;height:34px;border-radius:8px;border:1px solid #ccc;padding:0 10px;outline:none}
+.modal input:focus,.modal select:focus{border-color:#0f3460}
+.ma{display:flex;gap:8px;margin-top:1.2rem}
+.ma button{flex:1;height:34px;font-size:13px;font-weight:600;border-radius:8px;border:1px solid #ccc;cursor:pointer}
+.mc{background:#fff;color:#888}
+.mk{background:#0f3460;border-color:#0f3460;color:#fff}
+/* STATUS */
+.status-bar{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:.6rem 1rem;font-size:13px;color:#8B6914;margin-bottom:1rem;display:none}
+.status-bar.show{display:block}
+.sync-bar{padding:.35rem 1.25rem;font-size:11px;color:#aaa;border-top:1px solid #eee;display:flex;gap:6px;align-items:center}
+.sd{width:6px;height:6px;border-radius:50%;background:#ccc;flex-shrink:0}
+.sd.ok{background:#2d7a4f}.sd.sy{background:#EF9F27}.sd.er{background:#E24B4A}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="status-bar" id="status-bar"></div>
+
+<!-- ALERTA PERSONAS NON GRATAS (sempre visível) -->
+<div class="alert-bar">
+  <span class="ai">🚨</span>
+  <span>ATENÇÃO — PERSONAS NON GRATAS: Se identificadas, acionar segurança imediatamente.</span>
+  <span style="font-size:12px;opacity:.8;margin-left:8px">Tiago Herbert de Araujo · Conrado Paulino da Rosa</span>
+</div>
+
+<div class="card">
+  <div class="header-banner">
+    <div style="flex:1">
+      <div class="title">Comenda Oswaldo Vergara — OAB/RS</div>
+      <div class="subtitle">Credenciamento · 16h e 19h</div>
+    </div>
+    <div class="cnt-row">
+      <div class="hcnt">Presentes: <strong id="cnt-p">0</strong></div>
+      <div class="hcnt">Total: <strong id="cnt-t">0</strong></div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-op" onclick="switchTab('op')">Credenciamento</button>
+    <button class="tab" id="tab-cer" onclick="switchTab('cer')">Cerimonial</button>
+  </div>
+
+  <div class="pane active" id="pane-op">
+    <div class="export-row"><button class="btn-exp" onclick="exportCSV()">⬇ Exportar presenças</button></div>
+    <div class="sr">
+      <input type="text" id="search" placeholder="Buscar por nome ou cargo..." autocomplete="off" spellcheck="false" oninput="renderOp()">
+      <button class="btn-add" onclick="openModal()">+ Adicionar</button>
+    </div>
+    <div class="list" id="list-area"><div class="empty">Conectando...</div></div>
+  </div>
+
+  <div class="pane" id="pane-cer">
+    <div style="padding:.7rem 1.25rem;border-bottom:1px solid #eee;display:flex;align-items:center;gap:1rem"><span style="font-size:15px;font-weight:700;color:#0f3460;flex:1">Presentes no evento</span><span style="font-size:13px;color:#555">Total: <strong id="cer-cnt">0</strong></span><span style="font-size:11px;padding:3px 10px;border-radius:6px;background:#E8F5E9;color:#2E7D32;border:1px solid #81C784">ao vivo</span></div>
+    <div class="cer-filters" id="cer-filters"></div>
+    <div class="cl" id="cer-list"><div class="empty">Nenhuma presença registrada ainda.</div></div>
+  </div>
+
+  <div class="sync-bar">
+    <div class="sd" id="sd"></div>
+    <span id="ss">Conectando...</span>
+    <span style="flex:1"></span><span id="st"></span>
+  </div>
+</div>
+</div>
+
+<!-- MODAL NON GRATA -->
+<div class="overlay" id="modal-ng" onclick="if(event.target===this)closeNg()">
+  <div class="modal" onclick="event.stopPropagation()" style="border:3px solid #FF1744">
+    <h3 style="color:#FF1744">🚨 ALERTA — PERSONA NON GRATA</h3>
+    <p style="font-size:14px;color:#333;margin-bottom:1rem" id="ng-nome-msg"></p>
+    <p style="font-size:13px;color:#666">Esta pessoa representa risco. <strong>Acione o Rafael da Secretaria-Geral imediatamente</strong> e não permita o acesso ao evento.</p>
+    <div class="ma">
+      <button class="mc" onclick="closeNg()">Fechar</button>
+      <button class="mk" style="background:#FF1744;border-color:#FF1744" onclick="closeNg()">Entendido — Acionar Rafael</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CERTIFICADO -->
+<div class="overlay" id="modal-cert" onclick="if(event.target===this)closeCert()">
+  <div class="modal" onclick="event.stopPropagation()" style="border:3px solid #FF6F00">
+    <h3 style="color:#FF6F00">📜 EMITIR CERTIFICADO</h3>
+    <p style="font-size:14px;color:#333;margin-bottom:.5rem" id="cert-nome-msg"></p>
+    <p style="font-size:13px;color:#666">Este(a) homenageado(a) não estava confirmado(a) mas está presente. <strong>Produzir certificado agora</strong> antes de registrar a presença.</p>
+    <div class="ma">
+      <button class="mc" onclick="closeCert()">Cancelar — não registrar</button>
+      <button class="mk" style="background:#FF6F00;border-color:#FF6F00" onclick="confirmCert()">Certificado emitido — Registrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADICIONAR -->
+<div class="overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Adicionar participante</h3>
+    <label>Nome completo</label>
+    <input type="text" id="m-nome" placeholder="Nome" autocomplete="off">
+    <label>Cargo / Vínculo</label>
+    <input type="text" id="m-cargo" placeholder="ex.: Acompanhante de João Silva" autocomplete="off">
+    <label>Categoria</label>
+    <select id="m-cat">
+      <option value="h16">Homenageado(a) 16h</option>
+      <option value="h19">Homenageado(a) 19h</option>
+      <option value="nc-m">Não confirmado — Masculino</option>
+      <option value="nc-f">Não confirmado — Feminino</option>
+      <option value="voc">Autoridade / Vocativo</option>
+      <option value="conv">Convidado(a)</option>
+      <option value="acomp" selected>Acompanhante</option>
+    </select>
+    <div class="ma">
+      <button class="mc" onclick="closeModal()">Cancelar</button>
+      <button class="mk" onclick="confirmModal()">Adicionar e registrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+window.addEventListener('load', function() {
+firebase.initializeApp({
+  apiKey:"AIzaSyCrqbSl2NTz33MsAU2ZzclwGs41x2GkoMA",
+  authDomain:"credenciamento-colpres.firebaseapp.com",
+  databaseURL:"https://credenciamento-colpres-default-rtdb.firebaseio.com",
+  projectId:"credenciamento-colpres",
+  storageBucket:"credenciamento-colpres.firebasestorage.app",
+  messagingSenderId:"1025267833834",
+  appId:"1:1025267833834:web:a7c5e6bda6363545847093"
+});
+var db = firebase.database();
+var dbRef = db.ref("credenciamento/oswaldo-vergara-2025");
+
+// ─── PERSONAS NON GRATAS ────────────────────────────────────────────────────
+var NON_GRATAS = [
+  "Tiago Herbert de Araujo",
+  "Conrado Paulino da Rosa"
+];
+
+// ─── CATEGORIAS ─────────────────────────────────────────────────────────────
+// cat: voc | h16 | h19 | nc-m | nc-f | conv | acomp | ng
+var CATS = [
+  {id:"voc",   label:"Autoridades / Vocativo",           dot:"#6A1B9A", bg:"#F3E5F5", tc:"#6A1B9A", bc:"#CE93D8"},
+  {id:"h16",   label:"Homenageados(as) 16h",             dot:"#1565C0", bg:"#E3F2FD", tc:"#1565C0", bc:"#90CAF9"},
+  {id:"h19",   label:"Homenageados(as) 19h",             dot:"#2E7D32", bg:"#E8F5E9", tc:"#2E7D32", bc:"#81C784"},
+  {id:"nc-m",  label:"Não confirmados — Masculino",      dot:"#E65100", bg:"#FFF3E0", tc:"#E65100", bc:"#FFCC80"},
+  {id:"nc-f",  label:"Não confirmadas — Feminino",       dot:"#AD1457", bg:"#FCE4EC", tc:"#AD1457", bc:"#F48FB1"},
+  {id:"conv",  label:"Convidados(as)",                   dot:"#00695C", bg:"#E0F2F1", tc:"#00695C", bc:"#80CBC4"},
+  {id:"acomp", label:"Acompanhantes",                    dot:"#546E7A", bg:"#ECEFF1", tc:"#546E7A", bc:"#B0BEC5"},
+  {id:"ng",    label:"⚠️ Persona Non Grata",            dot:"#FF1744", bg:"#FFEBEE", tc:"#FF1744", bc:"#FF8A80"},
+];
+
+function cs(id){ return CATS.find(function(c){return c.id===id;})||CATS[CATS.length-2]; }
+
+// ─── BASE DE DADOS ───────────────────────────────────────────────────────────
+var BASE = [
+// VOCATIVO
+{n:"Leonardo Lamachia",          c:"Presidente da OAB/RS",                               cat:"voc"},
+{n:"Ana Lúcia Piccoli",          c:"Secretária-Geral da OAB/RS",                         cat:"voc"},
+{n:"Regina Pereira Soares",      c:"Secretária-Geral Adjunta da OAB/RS",                 cat:"voc"},
+{n:"Juliano Sampaio Gonçalves",  c:"Secretário-Geral Adjunto da CAARS",                  cat:"voc"},
+{n:"Gerson Fischmann",           c:"Diretor-Geral da Escola Superior de Advocacia",       cat:"voc"},
+{n:"Fernando Krieg da Fonseca",  c:"Ex-Presidente da OAB/RS",                            cat:"voc"},
+{n:"Luiz Carlos Levenzon",       c:"Ex-Presidente da OAB/RS",                            cat:"voc"},
+{n:"Cléa Carpi da Rocha",        c:"Ex-Presidente da OAB/RS",                            cat:"voc"},
+{n:"Rosângela Maria Herzer dos Santos", c:"Conselheira Federal",                         cat:"voc"},
+{n:"Pedro Alfonsin",             c:"Conselheiro Federal",                                 cat:"voc"},
+{n:"Paulo Caliendo Veloso da Silveira", c:"Presidente da Comissão para Temas Estratégicos", cat:"voc"},
+{n:"Maria Ercília Gralha",       c:"Corregedora Adjunta da OAB/RS",                      cat:"voc"},
+// HOMENAGEADOS 16h
+{n:"Alcemar Cardoso da Rosa",            c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Alencar Mello Proença",              c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Alváro Danubio Copetti",             c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Ana Paula Motta Costa",              c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Augusto Vieira Falcão",      c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Carlos Schamann Maineri",    c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Janyr Dall Agnol Junior",    c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Marcelo Caleffi",            c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Paulo Carpes Antunes",       c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Prestes do Nascimento",      c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Rampanelli",                 c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Antônio Zuheir Wadie Bishara Badra", c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Caio Martins Leal",                  c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Carlos Thomaz Avila Albornoz",       c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Christina Alvarez Gadret",           c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Claudio Gralha",                     c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Cláudio Alves Malgarin",             c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Cléa Anna Maria Carpi da Rocha",     c:"Homenageada — 16h", cat:"h16"},
+{n:"Clovis Gorczevski",                  c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Darci Norte Rebelo",                 c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Delmir Sergio Portolan",             c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Diana Paula Sana",                   c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Eduardo Cunha da Costa",             c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Eliseu Manica",                      c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Emilio Rothfuchs Neto",              c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Enio Celeste Burtet",                c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Erli Terezinha dos Santos",          c:"Homenageada — 16h", cat:"h16"},
+{n:"Fernando Krieg da Fonseca",          c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Francisco Lisbôa Di Napoli",         c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Frederico Guilherme Guariglia",      c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Gilberto Calderaro",                 c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Gustavo Juchem",                     c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Helena Maria Silva Coelho",          c:"Homenageada — 16h", cat:"h16"},
+{n:"Hélio Jacob Schenkel",               c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Hugo Antonio de Bitencourt",         c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Jader da Silveira Marques",          c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Janina Sobral de Rezende",           c:"Homenageada — 16h", cat:"h16"},
+{n:"Jorge Aristides Argerich do Amaral", c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Jorge Fernando Estevão Maciel",      c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"José Bernardo Ramos Boeira",         c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"José Carlos Carles de Souza",        c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"José Geraldo Louro Figueras",        c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"José Luis Mossmann Filho",           c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"João Olavo Daltrozo",                c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Julio Flavio Dornelles de Matos",    c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Leticia Saldanha Caiaffo",           c:"Homenageada — 16h", cat:"h16"},
+{n:"Luciano Ribeiro Feix",               c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Luiz Afonso Silva Antunes",          c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Luiz Augusto Beck da Silva",         c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Luiz Carlos Levenzon",               c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Luiz Eduardo Amaro Pellizzer",       c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Manoel Sampaio Antunes",             c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Marco Antonio de Mattos",            c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Maria Beatriz Fenalti Delgado",      c:"Homenageada — 16h", cat:"h16"},
+{n:"Maria de Fátima Zachia Paludo",      c:"Homenageada — 16h", cat:"h16"},
+{n:"Maria do Horto Caillava dos Santos", c:"Homenageada — 16h", cat:"h16"},
+{n:"Maria Lucia Muniz Couto",            c:"Homenageada — 16h", cat:"h16"},
+{n:"Marina Beatriz Silveira de Magalhães",c:"Homenageada — 16h", cat:"h16"},
+{n:"Marino de Castro Outeiro",           c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Nestor Fernando Hein",               c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Omar Ferri",                         c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Otacilio Lindemeyer Filho",          c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Paulo Roberto Basso",                c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Paulo Sergio Diniz da Costa",        c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Renato da Costa Figueira",           c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Ricardo Barbosa Alfonsin",           c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Roberto Expedito da Cunha Madrid",   c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Roberto Porto Farinon",              c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Roberto Wofchuk",                    c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Rodolfo Carrion Lopes de Almeida",   c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Romeu Carlos Alziro Gehlen",         c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Rosa Maria Fernandes da Rosa Fróes", c:"Homenageada — 16h", cat:"h16"},
+{n:"Sáloa Maria Neme da Silva",          c:"Homenageada — 16h", cat:"h16"},
+{n:"Sandra Weber dos Reis",              c:"Homenageada — 16h", cat:"h16"},
+{n:"Sergio Augusto Pereira de Borja",    c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Sergio Gilberto Porto",              c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Sérgio Amaral Campello",             c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Zeno Machado",                       c:"Homenageado(a) — 16h", cat:"h16"},
+// HOMENAGEADOS 19h
+{n:"Alceu de Mello Machado",             c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Alexandre Gehlen",                   c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Alexandre Lima Wunderlich",          c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Alfeu Dipp Muratt",                  c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Ana Luísa Soares de Carvalho",       c:"Homenageada — 19h", cat:"h19"},
+{n:"Anderson Trautmann Cardoso",         c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Andrea Teichmann Vizzotto",          c:"Homenageada — 19h", cat:"h19"},
+{n:"André Andrade de Araujo",            c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"André Luís Callegari",               c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"André Luís Sonntag",                 c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"André Renato Zuco",                  c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Armando Moutinho Perin",             c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Arnaldo de Araujo Guimarães",        c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Artur Garrastazu Gomes Ferreira",    c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Beatriz Maria Luchese Peruffo",      c:"Homenageada — 19h", cat:"h19"},
+{n:"Carlos Alberto Bencke",              c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Carlos Alberto de Oliveira",         c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Carmela Grüne",                      c:"Homenageada — 19h", cat:"h19"},
+{n:"César Vergara de Almeida Martins Costa", c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Claudia Lima Marques",               c:"Homenageada — 19h", cat:"h19"},
+{n:"Cláudio Roberto de Morais Garcez",   c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Clovis Ricardo Fontoura Barros",     c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Cristiane da Costa Nery",            c:"Homenageada — 19h", cat:"h19"},
+{n:"Daniel Horn",                        c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Delma Silveira Ibias",               c:"Homenageada — 19h", cat:"h19"},
+{n:"Eduardo Gralha Silva",               c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Eduardo Nassif Branchier",           c:"Homenageado(a) — 16h", cat:"h16"},
+{n:"Fabiana Azevedo da Cunha Barth",     c:"Homenageada — 19h", cat:"h19"},
+{n:"Fabrício Dreyer de Avila Pozzebon",  c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Fernanda Sporleder de Souza Pozzebon", c:"Homenageada — 19h", cat:"h19"},
+{n:"Francisco José Moesch",              c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Guilherme Rizzo Amaral",             c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Igor Danilevicz",                    c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Ingrid Renz Birnfeld",               c:"Homenageada — 19h", cat:"h19"},
+{n:"Jacqueline Mielke Silva",            c:"Homenageada — 19h", cat:"h19"},
+{n:"Jane Lúcia Wilhelm Berwanger",       c:"Homenageada — 19h", cat:"h19"},
+{n:"Janete Dambros",                     c:"Homenageada — 19h", cat:"h19"},
+{n:"Jorge Luiz Dalmas",                  c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"José Horácio de Oliveira Gattiboni", c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Jose Pedro Pedrassani",              c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Lia Beatriz Woltmann",               c:"Homenageada — 19h", cat:"h19"},
+{n:"Luís Antonio Jesus de Carvalho",     c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Luis Renato Ferreira da Silva",      c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Luís Sergio Vasques Miotti",         c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Marcelo Feijó de Medeiros",          c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Marcelo Ricardo Teixeira",           c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Maria Cristina Manassi da Conceição Brandolt", c:"Homenageada — 19h", cat:"h19"},
+{n:"Maria Dinair Acosta Goncalves",      c:"Homenageada — 19h", cat:"h19"},
+{n:"Marione Afonso",                     c:"Homenageada — 19h", cat:"h19"},
+{n:"Maurício Bianchi",                   c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Mônica Canellas Rossi",              c:"Homenageada — 19h", cat:"h19"},
+{n:"Morgana Bordignon",                  c:"Homenageada — 19h", cat:"h19"},
+{n:"Neimar Santos da Silva",             c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Neiva Roselia Seefeldt",             c:"Homenageada — 19h", cat:"h19"},
+{n:"Nina Rosa Corleta de Alencastro",    c:"Homenageada — 19h", cat:"h19"},
+{n:"Otto Junior Barreto",                c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Patrícia Degrazia Lima",             c:"Homenageada — 19h", cat:"h19"},
+{n:"Paulo Ricardo Dias de Moraes",       c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Paulo Roberto Cardoso Moreira de Oliveira", c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Renato Kliemann Paese",              c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Ricardo Cunha Martins",              c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Rita Maria Geremia Pavoni",          c:"Homenageada — 19h", cat:"h19"},
+{n:"Roberto Pierri Bersch",              c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Roque Soares Reckziegel",            c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Rosane Beatriz Jachimovski Danilevicz", c:"Homenageada — 19h", cat:"h19"},
+{n:"Ruy Fernando Zoch Rodrigues",        c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Samuel Chapper",                     c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Saulo Oliveira do Nascimento",       c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Sylvio Roberto Corrêa de Borba",     c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Telmo Lemos Filho",                  c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Telmo Rosa da Silva",                c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Teodoro Stedile Ribeiro",            c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Teresa Cristina Fernandes Moesch",   c:"Homenageada — 19h", cat:"h19"},
+{n:"Thiago Torres Guedes",               c:"Homenageado(a) — 19h", cat:"h19"},
+{n:"Vanêsca Buzelato Prestes",           c:"Homenageada — 19h", cat:"h19"},
+// CONVIDADOS ESPECIAIS
+{n:"Yeda Rorato Crusius",    c:"Ex-Governadora do Estado do Rio Grande do Sul · Convidada e acompanhante de Erli Terezinha dos Santos", cat:"conv"},
+{n:"Fernando Alves",         c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Angêla Sarquiz",         c:"Convidada · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Denise Russo",           c:"Convidada · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Denise Macedo",          c:"Convidada · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Murilo Souza",           c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Nise Farias",            c:"Convidada · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Lavina Rolim Viana",     c:"Convidada · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Sergio Viana",           c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Jorge Nunes",            c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Maria Helena",           c:"Convidada · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"João Alfredo Peixoto",   c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Alex Dias",              c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+{n:"Pedro Barbosa",          c:"Convidado · acompanhante de Erli Terezinha dos Santos",   cat:"conv"},
+// ACOMPANHANTES CONFIRMADOS
+{n:"Lucas Copetti Valli",                c:"Acompanhante de Alváro Danubio Copetti",       cat:"acomp"},
+{n:"Neli Rosa Osmarin Rampanelli",       c:"Acompanhante de Antônio Rampanelli",           cat:"acomp"},
+{n:"Natalia Rampanelli",                 c:"Acompanhante de Antônio Rampanelli",           cat:"acomp"},
+{n:"Enzo Rampanelli de Araujo",          c:"Acompanhante de Antônio Rampanelli",           cat:"acomp"},
+{n:"Vera do Prado Lima Albornoz",        c:"Acompanhante de Carlos Thomaz Avila Albornoz", cat:"acomp"},
+{n:"Cassiane Araújo Boeira",             c:"Acompanhante de José Bernardo Ramos Boeira",   cat:"acomp"},
+{n:"Guilherme Furtado Gomes Antunes",    c:"Acompanhante de Manoel Sampaio Antunes",       cat:"acomp"},
+{n:"Monica Fenalti Pasetto",             c:"Acompanhante de Maria Beatriz Fenalti Delgado",cat:"acomp"},
+{n:"Thamiris Fenalti Delgado",           c:"Acompanhante de Maria Beatriz Fenalti Delgado",cat:"acomp"},
+{n:"Patrícia Machado da Silva",          c:"Acompanhante de Maria Beatriz Fenalti Delgado",cat:"acomp"},
+{n:"Janaína Tólio Outeiro",              c:"Acompanhante de Marino de Castro Outeiro",     cat:"acomp"},
+{n:"Júlia Tólio Outeiro",                c:"Acompanhante de Marino de Castro Outeiro",     cat:"acomp"},
+{n:"Nelton Vieira dos Reis",             c:"Acompanhante de Sandra Weber dos Reis",        cat:"acomp"},
+{n:"Lais Weber dos Reis Correa",         c:"Acompanhante de Sandra Weber dos Reis",        cat:"acomp"},
+{n:"Karime Costalunga",                  c:"Acompanhante de Sáloa Maria Neme da Silva",    cat:"acomp"},
+{n:"Luanda Caiaffo Luz Mazzucco",        c:"Acompanhante de Leticia Saldanha Caiaffo",     cat:"acomp"},
+{n:"Otavio Caiaffo Mazzucco",            c:"Acompanhante de Leticia Saldanha Caiaffo",     cat:"acomp"},
+{n:"Caio Caiaffo Mazzucco",              c:"Acompanhante de Leticia Saldanha Caiaffo",     cat:"acomp"},
+{n:"Isabela Etchebeste Caiaffo",         c:"Acompanhante de Leticia Saldanha Caiaffo",     cat:"acomp"},
+{n:"Karen Fernandes da Rosa Fróes",      c:"Acompanhante de Rosa Maria Fernandes da Rosa Fróes", cat:"acomp"},
+{n:"Daniele Rakowski Janovik",           c:"Acompanhante de Rosa Maria Fernandes da Rosa Fróes", cat:"acomp"},
+{n:"Luiz Felipe Sturza Angst",           c:"Acompanhante de Rosa Maria Fernandes da Rosa Fróes", cat:"acomp"},
+{n:"Rafael Giordani",                    c:"Acompanhante de Rosa Maria Fernandes da Rosa Fróes", cat:"acomp"},
+{n:"Ronnie Mello",                       c:"Acompanhante de Alencar Mello Proença",        cat:"acomp"},
+{n:"Andrea Quintino",                    c:"Acompanhante de Arnaldo de Araujo Guimarães",  cat:"acomp"},
+{n:"Renato Grune",                       c:"Acompanhante de Carmela Grüne",                cat:"acomp"},
+{n:"Cármen Salete Souza",                c:"Acompanhante de Carmela Grüne",                cat:"acomp"},
+{n:"Eva Grune",                          c:"Acompanhante de Carmela Grüne",                cat:"acomp"},
+{n:"Emanuel Grune",                      c:"Acompanhante de Carmela Grüne",                cat:"acomp"},
+{n:"Fabíola Lima e Silva",               c:"Acompanhante de Eduardo Gralha Silva",         cat:"acomp"},
+{n:"Eduardo Gralha Silva Filho",         c:"Acompanhante de Eduardo Gralha Silva",         cat:"acomp"},
+{n:"Luciano Sulzbach",                   c:"Acompanhante de Eduardo Nassif Branchier",     cat:"acomp"},
+{n:"Paulo Cezar Brandalise",             c:"Acompanhante de Janete Dambros",               cat:"acomp"},
+{n:"Arthur Dambros Gomes",               c:"Acompanhante de Janete Dambros",               cat:"acomp"},
+{n:"Claudia Giovanna B. V. Miotti",      c:"Acompanhante de Luís Sergio Vasques Miotti",   cat:"acomp"},
+{n:"Márcia Anversa Teixeira",            c:"Acompanhante de Marcelo Ricardo Teixeira",     cat:"acomp"},
+{n:"Rafael Anversa Teixeira",            c:"Acompanhante de Marcelo Ricardo Teixeira",     cat:"acomp"},
+{n:"Bruno Anversa Teixeira",             c:"Acompanhante de Marcelo Ricardo Teixeira",     cat:"acomp"},
+{n:"Ana Carolina Serro Polita",          c:"Acompanhante de Marcelo Ricardo Teixeira",     cat:"acomp"},
+{n:"Lavínia Fontoura Ribeiro",           c:"Acompanhante de Clovis Ricardo Fontoura Barros", cat:"acomp"},
+{n:"Maximilia de Paula",                 c:"Acompanhante de Marione Afonso",               cat:"acomp"},
+{n:"Adriane Damian Pereira",             c:"Acompanhante de Marione Afonso",               cat:"acomp"},
+{n:"Doriana Carvalho Damé da Silva",     c:"Acompanhante de Neimar Santos da Silva",       cat:"acomp"},
+{n:"Carolina Fernandes Martins",         c:"Acompanhante de Ricardo Cunha Martins",        cat:"acomp"},
+{n:"Miriam Munhoz Fernandes",            c:"Acompanhante de Ricardo Cunha Martins",        cat:"acomp"},
+{n:"Inajá Oliveira de Borba",            c:"Acompanhante de Sylvio Roberto Corrêa de Borba", cat:"acomp"},
+{n:"Jean Xavier",                        c:"Acompanhante de José Horácio de Oliveira Gattiboni", cat:"acomp"},
+// Família Calderaro (16h)
+{n:"Fernanda Proença Calderaro Lara",    c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Carla Calderaro Dalcin",             c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Patrícia Proença Calderaro",         c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Tatiani Calderaro Dalcin Bagatini",  c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Katiússia Calderaro Dalcin",         c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Bruna Brum Calderaro",               c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Flora Maria Proença Baisch",         c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Marco Antônio Gonçalves Proença",    c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Paulo Roberto Gonçalves Proença",    c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Fátima Maria Reis Proença",          c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Suzana Maria da Costa Proença",      c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Letícia Bittencourt Carvalho Bernardes", c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Maria Helizabeth Calderaro",         c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Bruno Mendonça Costa",               c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+{n:"Matheus Pires",                      c:"Acompanhante de Gilberto Calderaro", cat:"acomp"},
+// PERSONAS NON GRATAS
+{n:"Tiago Herbert de Araujo",   c:"⚠️ PERSONA NON GRATA — Acionar segurança imediatamente", cat:"ng"},
+{n:"Conrado Paulino da Rosa",   c:"⚠️ PERSONA NON GRATA — Acionar segurança imediatamente", cat:"ng"},
+];
+
+// Não confirmados (masculino e feminino) — gerados das listas completas menos os confirmados
+var CONFIRMADOS_16H = new Set(BASE.filter(function(b){return b.cat==="h16";}).map(function(b){return norm(b.n);}));
+var CONFIRMADOS_19H = new Set(BASE.filter(function(b){return b.cat==="h19";}).map(function(b){return norm(b.n);}));
+
+var NC_MASC = [
+"Adão Conceição Dornelles Faraco","Afonso Celso Bandeira Martha","Airtom Pacheco Do Amaral","Airton Luiz Sganzerla","Alberto Hindeburgo Fetter","Alexandre Bisognin Lyrio","Alexandre Da Fontoura Dionello","Alexandre Fernandes Gastal","Álvaro Moisés Sana","Amadeu De Almeida Weinmann","André Avelino Ribeiro Neto","André Jobim De Azevedo","André Vanoni De Godoy","Antônio Augusto Da Silva Fagundes","Antônio Carlos Filippe","Antônio Carlos Tamioso Bevilacqua","Antônio Luiz Fetter","Araken De Assis","Aramis Schmitz Ferreira","Armando Fialho Fagundes","Armando Jose Sant Anna Pitrez","Athos Renner Diniz","Bernardo Olavo Gomes De Souza","Bonaparte Lazarini Jobim","Brasilio Pedroso De Albuquerque","Braulio Dinarte Da Silva Pinto","Bruno Nubens Barbosa Miragem","Bruno Sergio De Araujo Hartz","Carlos Alberto Do Amaral","Carlos Antonio Roggia","Carlos Francisco Sica Diniz","Carlos Geraldo Bernardes Coelho Silva","Carlos Henrique Moreira Becker","Celso Bernardi","Celso Luiz Afonso Haical","Cicero Barcellos Ahrends","Cláudio Amildon Rosso","Cláudio Otavio Melchiades Xavier","Cláudio Roberto Flores Battaglia","Cláudio Roberto Olivaes Linhares","Cleomir De Oliveira Carrao","Corálio Clementino Pedroso Gonçalves","Daniel Francisco Mitidiero","Danilo Knijnik","Darcy Helio Sari","Dirceu Valdemar Klippel","Dolmy Antonio Tarasconi","Doribio Grunevald","Ederon Amaro Soares Da Silva","Edson Brozoza","Edson Morais Garcez","Eduardo Alvares De Souza Soares","Eduardo Ferreira Bandeira De Mello","Eduardo Kroeff Machado Carrion","Eduardo Mariotti","Egidio Valdino Dal Forno","Eleu Rosa De Menezes","Eliseu Gomes Torres","Elvandir Jose Da Costa","Erci Marcos Sabedot","Euclides Serapio Ferreira","Fábio Luiz Gomes","Feres Jorge Rocha E Silva Uequed","Fernando Antonio Freitas Malheiros","Fernando Antonio Pereira Magnus","Fernando Geraldo Mendes Cavalcanti","Fiorentino Debiasi","Flavio Nereo Friedrich","Francisco Arno Vaz Da Cunha","Francisco Jose Da Rocha","Francisco José Soller De Mattos","Franklin Amaral Ramos","Frederico De Sampaio Didonet","Frederico Dias Da Cruz","Garibaldi Almeida Wedy","Gastao Dornelles Da Fonseca","Genesio Grisotti","Geraldo Nogueira Da Gama","Gerardo Carlos Hilbk","Gilberto Niederauer Correa","Gomercindo Lins Coitinho","Gustavo Fausto Miele","Hélio Antônio Susin","Helio Bischoff","Helio Faraco De Azevedo","Hilton Norberto Strassburger","Hippolyto Brum","Hotony De Jezus Braga","Ilo Batista Da Silva","Imar Santos Cabeleira","Irineo Miguel Messinger","Irineu Antonio Zart","Irineu Santos Lemos Da Luz","Isaac Alster","Itamar Antonio Moretti Basso","Jayme Antônio Pereira","Joao Arla","Joao Elpidio De Almeida Neto","Joao Nascimento Da Silva","Joaquim Ebling Rodrigues","Jorge Cesa Ferreira Da Silva","Jorge Renato Dos Reis","Jorge Santos Buchabqui","Jose Abdalla Zarif Sobrinho","Jose Argemiro Rossi De Amorim","Jose Arlindo Primieri","José Ataides Siqueira Trindade","Jose Bernardo De Medeiros Neto","José Carlos Teixeira Giorgis","Jose Carlos Pereira De Almeida","Jose De Souza Mendonca","Jose Diogo Cyrillo Da Silva","Jose Fernando Schaan","Jose Francelino De Araujo","José Gilberto Da Cunha Gastal","Jose Luiz Alimena","Jose Luiz Belan","Jose Mello De Freitas","Jose Regis De Carvalho Prestes","Jose Renato Veiga Palombini","Jose Ruy Trindade Dutra","Josefino Francesquetto","Juarez Freitas","Julio Cesar De Menezes Spies","Lauri Romario Silva","Lauro Beheregaray Delgado","Leo Iolovitch","Liborio Fregapani","Luis Alberto Puperi","Luis Carlos Echeverria Piva","Luiz Andre Forster","Luiz Antonio Lopes","Luiz Antonio Schmitt De Azevedo","Luiz Carlos Barradas Leiria","Luiz Carlos Vasconcellos","Luiz Felipe Lima De Magalhaes","Luiz Francisco Correa Barbosa","Luiz Henrique Behs Filho","Luiz Henrique Cabanellos Schuh","Luiz Juares Nogueira De Azevedo","Marcelo Machado Bertoluci","Marco Aurélio Romeu Fernandes","Marcos Juliano Borges De Azevedo","Mario Da Costa Neves","Mario Frederico Ferreira Wunderlich","Mathias Nagelstein","Maximo Jose Trevisan","Miguel Antonio Silveira Ramos","Miguel Tedesco Wedy","Milton Jose Munhoz Camargo","Nelson Mohr","Nereu Lima","Ney Ortiz Borges","Nielon Jose Meirelles Escouto","Nilo Amaral Junior","Norberto Da Costa Caruso Mac Donald","Oscar Breno Stahnke","Oscar Maciel Trindade Netto","Pacifico Luiz Saldanha","Paulo De Mello Aleixo","Paulo Hermeto Orcy Torre","Paulo Olimpio Gomes De Souza","Paulo Ricardo Tonet Camargo","Pedro Jerre Greca Mesquita","Peter Walter Ashton","Plinio De Oliveira Correa","Policiano Konrad Da Cruz","Raimar Rodrigues Machado","Raul Schmitt","Renan Falcao De Azevedo","Renato De Mello Levy","Renato Domingos Zuco","Rene Bergmann Avila","Ricardo Hermany","Ricardo Munarski Jobim","Roberto Duro Gick","Roberto Farinha Machado Carrion","Roberto Ivo Soccol","Rodrigo Dorneles","Romildo Bolzan Junior","Ronaldo Curi Terra","Rubens Bellora","Rubens Clair Viana","Rubens Soares Vellinho","Ruy Pereira Niederauer","Salvador Horacio Vizzotto","Sandro Marcelo Ferreira Dos Santos","Saul De Mello Calvete","Sergio Bastos Seitenfus","Sergio Jose Porto","Sergio Leal Martinez","Sergio Pereira Da Silva","Sergio Roberto Da Fontoura Juchem","Sezefredo Jose Prado Fabricio","Silvio Ronaldo Santos De Moraes","Tarso Fernando Herz Genro","Tito Uranga","Vergilio Francisco Da Silveira","Victorio Paludo","Vilson Luiz Covatti","Vital Moacir Da Silveira","Vitor Ugo Oltramari","Waldomiro Vanelli Pinheiro","Walter Jobim Neto","Walter Jose Diehl","Walter Vernet De Borba","Werner Cantalicio Joao Becker","Wolnei Guimaraes Ribeiro","Marco Antonio Birnfeld"
+];
+
+var NC_FEM = [
+"Alice Grecchi","Adriana Fagundes Burger","Amelia Celaro Rodrigues Verri","Ana Maria Porciuncula Saraiva","Ana Maria Selbach","Angela Edon Britto","Avani Valeria Rigo Busato","Bernadete Lau Kurtz","Cecilia De Araujo Costa","Cinara Liane Frosi Tedesco","Clecy Carnieletto Muller","Cleomir De Oliveira Carrao","Cleusa Marilia Peixoto Martinez","Elida Rodrigues Costa","Fernanda Oltramari","Gizéli Belloli","Helena Juraci Amisani","Ilsa Joanna Antonieta Brans","Ivete Dieter","Joana Marli Gularte Moraes","Jureva Da Costa","Lady Da Silva Calvete","Liane Bestetti","Lidia Loni Jesse Woida","Lila Maria Lena Souza","Lourdes De Souza","Lourdes Veneranda Camaratta","Lucia Jobim De Azevedo","Lucia Liebling Kopittke","Magda Brossard Iolovitch","Maria Amalia Dias De Moraes","Maria Antonieta Chiarelli Iglesias","Maria Berenice Dias","Maria Da Graca Malta Gauterio","Maria De Lourdes Sampaio Martines","Maria Izabel De Freitas Beck","Maria Ubaldina Robalos","Marlei Salete Flores","Monica Fernandes Guazzelli","Nadime Therezinha Assen","Neusa Elaine Couto Ledesma","Odila Gema Perin Fonseca","Olga Myzak","Patricia Alovisi","Procelina Santanna Fernandes","Rosa Maria Mingot Scotta","Rosaly Brandalise Rizzon","Sandra Maria Rebelato","Sheila Mara Rodrigues Bello","Shirley Silva Caetano","Sonia Leatrice Wildt Do Canto","Suely Fortunato Larronda","Sulamita Terezinha Santos Cabral","Valeria Tscheika","Vera Maria Jacob De Fradera","Vera Maria Reis Da Cruz","Vera Rossana Martini Wanner","Wanda Marisa Gomes Siqueira","Judith Hofmeister Martins Costa"
+];
+
+// Adicionar não confirmados ao BASE
+NC_MASC.forEach(function(nome){
+  BASE.push({n:nome, c:"Comenda Masculino — não confirmado(a)", cat:"nc-m", nc:true});
+});
+NC_FEM.forEach(function(nome){
+  BASE.push({n:nome, c:"Comenda Feminino — não confirmada", cat:"nc-f", nc:true});
+});
+
+console.log("Total na lista:", BASE.length);
+
+// ─── FUNÇÕES AUXILIARES ──────────────────────────────────────────────────────
+function norm(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g," ").trim(); }
+function sk(s){ return s.replace(/[.#$\/\[\]'"]/g,"_"); }
+function getKey(b){ return sk("ov|||"+b.n); }
+function isNG(nome){ return NON_GRATAS.some(function(ng){return norm(ng)===norm(nome);}); }
+function isChecked(key){ var v=state.checkins[key]; return v===true||(v&&v.checked); }
+function getTime(key){ var v=state.checkins[key]; return (v&&v.time)?v.time:(v===true?"—":null); }
+function nowTime(){ return new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"}); }
+
+var state={checkins:{},extras:{}};
+var editingKey=null;
+var activeTab="op";
+var cerFilters={};
+CATS.forEach(function(c){cerFilters[c.id]=true;});
+var saving=false;
+var pendingCertKey=null;
+var pendingNgKey=null;
+
+function allItems(){
+  var list=BASE.map(function(b){return {n:b.n,c:b.c,cat:b.cat,nc:!!b.nc,key:getKey(b),extra:false};});
+  Object.keys(state.extras||{}).forEach(function(uid){
+    var ex=state.extras[uid];
+    list.push({n:ex.nome,c:ex.cargo,cat:ex.cat||"acomp",key:sk("extra|||"+uid),extra:true,uid:uid});
+  });
+  return list;
+}
+
+function renderOp(){
+  var q=norm((document.getElementById("search").value||"").trim());
+  var items=allItems();
+  var total=0,chkd=0;
+  items.forEach(function(m){
+    if(m.cat!=="ng"){total++;if(isChecked(m.key))chkd++;}
+  });
+  document.getElementById("cnt-p").textContent=chkd;
+  document.getElementById("cnt-t").textContent=total;
+
+  // Agrupar por categoria para exibição
+  var order=["ng","voc","h16","h19","nc-m","nc-f","conv","acomp"];
+  var groups={};
+  order.forEach(function(id){groups[id]=[];});
+  var filtered;
+  if(q){
+    filtered=items.filter(function(m){return norm(m.n).includes(q)||norm(m.c).includes(q);});
+  } else {
+    filtered=items;
+  }
+  filtered.forEach(function(m){
+    var cat=m.cat||"acomp";
+    if(!groups[cat])groups["acomp"].push(m); else groups[cat].push(m);
+  });
+
+  var html="";
+  order.forEach(function(catId){
+    var grp=groups[catId];
+    if(!grp.length)return;
+    var s=CATS.find(function(c){return c.id===catId;})||CATS[CATS.length-2];
+    var chkCount=grp.filter(function(m){return isChecked(m.key);}).length;
+    html+='<div style="background:'+s.bg+'">'
+      +'<div class="grp-hdr" style="background:'+s.bg+';border-bottom:2px solid '+s.dot+'">'
+      +'<div class="grp-dot" style="background:'+s.dot+'"></div>'
+      +'<div class="grp-name" style="color:'+s.tc+'">'+s.label+'</div>'
+      +'<div class="grp-badge">'+chkCount+'/'+grp.length+'</div>'
+      +'</div>';
+
+    grp.forEach(function(m){
+      var chk=isChecked(m.key);
+      var isNg=m.cat==="ng";
+      var isNc=m.nc;
+
+      if(editingKey===m.key){
+        var catOpts=CATS.filter(function(c){return c.id!=="ng";}).map(function(c){
+          return '<option value="'+c.id+'"'+(c.id===m.cat?" selected":"")+'>'+c.label+'</option>';
+        }).join("");
+        html+='<div class="er"><div class="ef">'
+          +'<input type="text" id="edit-nome" value="'+m.n.replace(/"/g,"&quot;")+'" autocomplete="off" style="min-width:160px">'
+          +'<select id="edit-cat">'+catOpts+'</select>'
+          +'<button class="btn" style="background:#0f3460;border-color:#0f3460;color:#fff" data-action="save-edit" data-key="'+m.key+'" data-uid="'+(m.extra?m.uid:"")+'" data-extra="'+!!m.extra+'">Salvar</button>'
+          +'<button class="btn" onclick="cancelEdit()">✕</button>'
+          +'</div></div>';
+        return;
+      }
+
+      var tags="";
+      if(isNg) tags+='<span class="pill palerta">⚠️ NON GRATA</span>';
+      if(m.cat==="h16") tags+='<span class="pill p16">16h</span>';
+      if(m.cat==="h19") tags+='<span class="pill p19">19h</span>';
+      if(m.cat==="voc") tags+='<span class="pill pvoc">vocativo</span>';
+      if(isNc&&!chk) tags+='<span class="pill pnc">⚠️ certificado</span>';
+      if(m.extra) tags+='<span class="pill pwi">walk-in</span>';
+      var t=chk&&getTime(m.key)?'<span style="font-size:11px;color:#aaa;margin-left:6px">⏱ '+getTime(m.key)+'</span>':"";
+      var certLine=isNc&&!chk?'<div class="cert-alert">⚠️ Não estava confirmado(a) — EMITIR CERTIFICADO antes de registrar</div>':"";
+
+      html+='<div class="mr'+(isNg?" non-grata":"")+'">'
+        +'<div class="mi">'
+        +'<span class="mn'+(chk?" chk":"")+(isNg?" non-grata-name":"")+'">'+m.n+tags+'</span>'+t
+        +'<div class="cargo-txt">'+m.c+'</div>'
+        +certLine
+        +'</div>'
+        +'<div class="ra">';
+      if(isNg){
+        html+='<button class="btn bp alerta-btn" data-action="toggle-ng" data-key="'+m.key+'" data-nome="'+m.n+'">🚨 ALERTA</button>';
+      } else {
+        html+='<button class="btn bp'+(chk?" done":"")+'" data-action="toggle" data-key="'+m.key+'" data-nc="'+isNc+'">'+(chk?"Presente":"Registrar")+'</button>';
+      }
+      html+='<button class="btn ic" data-action="edit" data-key="'+m.key+'">✏</button>'
+        +'</div></div>';
+    });
+    html+='</div>';
+  });
+
+  document.getElementById("list-area").innerHTML=html||'<div class="empty">Nenhum resultado.</div>';
+}
+
+function renderCer(){
+  var items=allItems();
+  var present=items.filter(function(m){return isChecked(m.key)&&m.cat!=="ng";});
+  document.getElementById("cer-cnt")?document.getElementById("cer-cnt").textContent=present.length:null;
+  var cl=document.getElementById("cer-list");
+  if(!present.length){cl.innerHTML='<div class="empty">Nenhuma presença registrada ainda.</div>';return;}
+  var cerOrder=["voc","h16","h19","nc-m","nc-f","conv","acomp"];
+  var groups={};
+  cerOrder.forEach(function(id){groups[id]=[];});
+  present.forEach(function(m){
+    var cat=m.cat||"acomp";
+    if(groups[cat])groups[cat].push(m);
+  });
+  cerOrder.forEach(function(id){
+    groups[id].sort(function(a,b){return a.n.localeCompare(b.n,"pt-BR");});
+  });
+  var html="";
+  cerOrder.forEach(function(catId){
+    if(!cerFilters[catId])return;
+    var grp=groups[catId];
+    if(!grp.length)return;
+    var s=CATS.find(function(c){return c.id===catId;})||CATS[CATS.length-2];
+    html+='<div class="cer-group">'
+      +'<div class="cer-gh" style="color:'+s.dot+'">'+s.label+' — '+grp.length+' presente'+(grp.length>1?'s':'')+'</div>'
+      +grp.map(function(m){
+        var t=getTime(m.key);
+        var certBadge=m.nc?'<div class="cc-cert" style="margin-left:8px">📜 CERTIFICADO</div>':"";
+        return '<div class="cc" style="background:'+s.bg+';border:1px solid '+s.bc+';border-left-color:'+s.dot+'">'
+          +'<div class="cd" style="background:'+s.dot+'"></div>'
+          +'<div style="flex:1;min-width:0">'
+          +'<div class="cn">'+m.n+'</div>'
+          +'<div class="cs2">'+m.c+(t?' · ⏱ '+t:'')+'</div>'
+          +'</div>'
+          +certBadge
+          +'<div class="cc-badge" style="background:'+s.bg+';color:'+s.tc+';border-color:'+s.bc+';margin-left:'+(certBadge?"4":"0")+'px">'+s.label+'</div>'
+          +'</div>';
+      }).join("")
+      +'</div>';
+  });
+  cl.innerHTML=html||'<div class="empty">Nenhuma categoria selecionada.</div>';
+}
+
+function buildCerFilters(){
+  var div=document.getElementById("cer-filters");
+  if(!div)return;
+  div.innerHTML='<span style="font-size:11px;color:#aaa;margin-right:4px">Mostrar:</span>';
+  var items=allItems();
+  var present=items.filter(function(m){return isChecked(m.key)&&m.cat!=="ng";});
+  var used={};
+  present.forEach(function(m){used[m.cat||"acomp"]=true;});
+  CATS.filter(function(c){return c.id!=="ng";}).forEach(function(cat){
+    if(!used[cat.id])return;
+    var on=cerFilters[cat.id];
+    var btn=document.createElement("button");
+    btn.className="cf"+(on?" on":"");
+    btn.style.borderColor=on?cat.dot:"#ccc";
+    btn.style.color=on?cat.dot:"#aaa";
+    btn.innerHTML='<span class="cfd" style="background:'+(on?cat.dot:"#ccc")+'"></span>'+cat.label;
+    btn.onclick=function(){
+      cerFilters[cat.id]=!cerFilters[cat.id];
+      buildCerFilters();renderCer();
+    };
+    div.appendChild(btn);
+  });
+}
+
+function render(){renderOp();if(activeTab==="cer"){buildCerFilters();renderCer();}}
+
+function toggle(key, isNc){
+  if(isChecked(key)){
+    delete state.checkins[key];
+    render();saveToFb();
+  } else if(isNc==="true"){
+    // Mostrar modal de certificado
+    pendingCertKey=key;
+    var item=allItems().find(function(m){return m.key===key;});
+    document.getElementById("cert-nome-msg").textContent=item?item.n:"";
+    document.getElementById("modal-cert").classList.add("open");
+  } else {
+    state.checkins[key]={checked:true,time:nowTime()};
+    render();saveToFb();
+  }
+}
+
+function confirmCert(){
+  if(pendingCertKey){
+    state.checkins[pendingCertKey]={checked:true,time:nowTime(),cert:true};
+    pendingCertKey=null;
+    document.getElementById("modal-cert").classList.remove("open");
+    render();saveToFb();
+  }
+}
+function closeCert(){ document.getElementById("modal-cert").classList.remove("open"); pendingCertKey=null; }
+
+function triggerNg(key, nome){
+  pendingNgKey=key;
+  document.getElementById("ng-nome-msg").textContent="Pessoa identificada: "+nome;
+  document.getElementById("modal-ng").classList.add("open");
+}
+function closeNg(){ document.getElementById("modal-ng").classList.remove("open"); pendingNgKey=null; }
+
+function startEdit(key){editingKey=key;renderOp();}
+function cancelEdit(){editingKey=null;renderOp();}
+function saveEdit(key,uid,isExtra){
+  var nome=document.getElementById("edit-nome").value.trim();
+  var catEl=document.getElementById("edit-cat");
+  var novaCat=catEl?catEl.value:null;
+  if(!nome)return;
+  if(isExtra==="true"&&state.extras[uid]){
+    state.extras[uid].nome=nome;
+    if(novaCat)state.extras[uid].cat=novaCat;
+  } else {
+    // Para itens do BASE, guardar overrides no state
+    if(!state.overrides)state.overrides={};
+    state.overrides[key]={cat:novaCat};
+    // Atualizar no BASE diretamente para esta sessão
+    BASE.forEach(function(b){
+      if(getKey(b)===key){
+        if(novaCat){b.cat=novaCat;b.c=b.c.replace(/— (16h|19h)/,"— "+novaCat.replace("h","")+"h");}
+      }
+    });
+  }
+  editingKey=null;render();saveToFb();
+}
+
+function switchTab(t){
+  activeTab=t;
+  document.getElementById("tab-op").className="tab"+(t==="op"?" active":"");
+  document.getElementById("tab-cer").className="tab"+(t==="cer"?" active":"");
+  document.getElementById("pane-op").className="pane"+(t==="op"?" active":"");
+  document.getElementById("pane-cer").className="pane"+(t==="cer"?" active":"");
+  if(t==="cer"){buildCerFilters();renderCer();}
+}
+
+function openModal(){
+  document.getElementById("m-nome").value="";
+  document.getElementById("m-cargo").value="";
+  document.getElementById("m-cat").value="acomp";
+  document.getElementById("modal").classList.add("open");
+  setTimeout(function(){document.getElementById("m-nome").focus();},50);
+}
+function closeModal(){document.getElementById("modal").classList.remove("open");}
+function confirmModal(){
+  var nome=document.getElementById("m-nome").value.trim();
+  if(!nome)return;
+  // Verificar se é persona non grata
+  if(isNG(nome)){
+    document.getElementById("ng-nome-msg").textContent="Pessoa identificada: "+nome;
+    document.getElementById("modal-ng").classList.add("open");
+    closeModal();return;
+  }
+  var cargo=document.getElementById("m-cargo").value.trim();
+  var cat=document.getElementById("m-cat").value;
+  var uid="x"+Date.now()+Math.floor(Math.random()*9999);
+  state.extras[uid]={nome:nome,cargo:cargo,cat:cat};
+  state.checkins[sk("extra|||"+uid)]={checked:true,time:nowTime()};
+  closeModal();render();saveToFb();
+}
+
+function exportCSV(){
+  var items=allItems();
+  var catLabel={"voc":"Autoridade/Vocativo","h16":"Homenageado 16h","h19":"Homenageado 19h","nc-m":"Não Confirmado Masc.","nc-f":"Não Confirmada Fem.","conv":"Convidado(a)","acomp":"Acompanhante","ng":"Non Grata"};
+  var rows=[["Nome","Categoria","Cargo/Vínculo","Horário","Certificado"]];
+  items.forEach(function(m){
+    if(isChecked(m.key)&&m.cat!=="ng"){
+      var v=state.checkins[m.key];
+      rows.push([m.n,catLabel[m.cat]||m.cat,m.c,getTime(m.key)||"—",(v&&v.cert?"SIM":"")]);
+    }
+  });
+  var csv="\uFEFF"+rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(";");}).join("\n");
+  try{
+    var blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url;a.download="presencas_comenda_ov_"+new Date().toLocaleDateString("pt-BR").replace(/\//g,"-")+".csv";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},2000);return;
+  }catch(e){}
+}
+
+document.getElementById("list-area").addEventListener("click",function(e){
+  var btn=e.target.closest("[data-action]");
+  if(!btn)return;
+  var action=btn.dataset.action;
+  var key=btn.dataset.key;
+  if(action==="toggle")toggle(key,btn.dataset.nc);
+  if(action==="toggle-ng")triggerNg(key,btn.dataset.nome);
+  if(action==="edit")startEdit(key);
+  if(action==="save-edit")saveEdit(key,btn.dataset.uid,btn.dataset.extra);
+});
+
+function saveToFb(){
+  if(saving)return;saving=true;setSt("sy");
+  dbRef.set({checkins:state.checkins,extras:state.extras,overrides:state.overrides||{}}).then(function(){
+    setSt("ok");
+  }).catch(function(e){
+    setSt("er");
+    document.getElementById("status-bar").textContent="ERRO AO SALVAR: "+(e.message||e);
+    document.getElementById("status-bar").className="status-bar show";
+  }).finally(function(){saving=false;});
+}
+function setSt(s){
+  var dot=document.getElementById("sd"),st=document.getElementById("ss"),tm=document.getElementById("st");
+  dot.className="sd"+(s==="ok"?" ok":s==="sy"?" sy":" er");
+  st.textContent=s==="ok"?"Sincronizado":s==="sy"?"Salvando...":"Erro de conexão";
+  if(s==="ok")tm.textContent=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+}
+
+dbRef.on("value",function(snapshot){
+  var data=snapshot.val();
+  if(data){
+    state.checkins=data.checkins||{};
+    state.extras=data.extras||{};
+    state.overrides=data.overrides||{};
+    // aplicar overrides de categoria no BASE
+    BASE.forEach(function(b){
+      var ov=state.overrides[getKey(b)];
+      if(ov&&ov.cat){
+        b.cat=ov.cat;
+        b.c=b.c.replace(/— (16h|19h|Homenageado)/,"— "+ov.cat.replace("h","")+"h");
+      }
+    });
+  }
+  render();setSt("ok");
+},function(e){setSt("er");console.error(e);});
+// expor todas as funções chamadas pelo HTML para o escopo global
+window.switchTab   = switchTab;
+window.openModal   = openModal;
+window.closeModal  = closeModal;
+window.confirmModal= confirmModal;
+window.cancelEdit  = cancelEdit;
+window.closeNg     = closeNg;
+window.closeCert   = closeCert;
+window.confirmCert = confirmCert;
+window.exportCSV   = exportCSV;
+window.renderOp    = renderOp;
+
+}); // end window.onload
+</script>
+</body>
+</html>
