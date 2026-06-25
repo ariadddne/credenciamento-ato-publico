@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credenciamento — Colégio de Presidentes CJA OAB/RS</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f0ff;color:#1a1a1a;font-size:15px}
+.app{max-width:860px;margin:0 auto;padding:1rem}
+.card{background:#fff;border-radius:14px;border:1px solid #ddd;overflow:hidden;margin-bottom:1rem}
+.banner{background:linear-gradient(135deg,#4a1285 0%,#7b2d8b 50%,#9c27b0 100%);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.banner-title{color:#fff;font-size:17px;font-weight:700;flex:1}
+.banner-sub{color:#e1bee7;font-size:11px;margin-top:2px}
+.cnt-row{display:flex;gap:8px;flex-wrap:wrap}
+.hcnt{background:rgba(255,255,255,.15);border-radius:8px;padding:5px 12px;font-size:13px;color:#e1bee7}
+.hcnt strong{color:#fff;font-weight:700}
+.tabs{display:flex;border-bottom:1px solid #e0d5f0;background:#faf5ff}
+.tab{padding:.7rem 1.25rem;font-size:13px;font-weight:500;color:#888;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;white-space:nowrap}
+.tab:hover{color:#7b2d8b}
+.tab.active{color:#7b2d8b;border-bottom:2px solid #7b2d8b;background:#fff}
+.pane{display:none}.pane.active{display:block}
+/* BUSCA */
+.sr{padding:.65rem 1.25rem;border-bottom:1px solid #eee;display:flex;gap:8px}
+.sr input{flex:1;font-size:14px;padding:0 12px;height:38px;border-radius:8px;border:1px solid #c8b4e0;outline:none}
+.sr input:focus{border-color:#7b2d8b;box-shadow:0 0 0 3px rgba(123,45,139,.12)}
+.btn-add{height:38px;padding:0 16px;font-size:13px;font-weight:500;border-radius:8px;border:1px solid #c8b4e0;background:#fff;color:#7b2d8b;cursor:pointer;white-space:nowrap}
+.btn-add:hover{background:#faf5ff}
+.export-row{padding:.4rem 1.25rem 0;display:flex;justify-content:flex-end}
+.btn-exp{font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #c8b4e0;background:#fff;color:#7b2d8b;cursor:pointer}
+/* LISTA CREDENCIAMENTO */
+.list{max-height:520px;overflow-y:auto}
+.sb{border-bottom:1px solid #f0e8ff}
+.sh{padding:.55rem 1.25rem;background:#faf5ff;display:flex;align-items:center;gap:8px}
+.sl{width:24px;height:24px;border-radius:50%;background:#e1bee7;color:#7b2d8b;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sn{font-size:13px;font-weight:600;color:#4a1285;flex:1}
+.sbadge{font-size:11px;padding:2px 8px;border-radius:6px;border:1px solid #e0d5f0;color:#888}
+.sbadge.done{background:#E8F5E9;border-color:#81C784;color:#2E7D32}
+.ml{padding:.2rem 1.25rem .4rem}
+.mr{display:flex;align-items:center;gap:8px;padding:.45rem 0;border-bottom:1px solid #f9f5ff}
+.mr:last-child{border-bottom:none}
+.mi{flex:1;min-width:0}
+.mn{font-size:13px;color:#1a1a1a}
+.mn.chk{text-decoration:line-through;color:#aaa}
+.cargo-txt{font-size:11px;color:#777;margin-top:2px}
+.pill{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;font-weight:600}
+.p-pres{background:#E8EAF6;color:#3949AB;border:1px solid #9FA8DA}
+.p-vip{background:#FCE4EC;color:#AD1457;border:1px solid #F48FB1}
+.p-wi{background:#FFF8E1;color:#8B6914;border:1px solid #FFE082}
+.ra{display:flex;gap:5px;flex-shrink:0}
+.btn{height:28px;padding:0 10px;font-size:12px;border-radius:7px;border:1px solid #ccc;background:#fff;color:#333;cursor:pointer}
+.btn:hover{background:#f9f5ff}
+.btn.bp{min-width:76px}
+.btn.done{background:#E8F5E9;border-color:#81C784;color:#2E7D32}
+.btn.ic{padding:0;width:28px;display:flex;align-items:center;justify-content:center}
+.er{padding:.45rem 0;border-bottom:1px solid #f9f5ff}
+.ef{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ef input,.ef select{font-size:12px;height:30px;border-radius:7px;border:1px solid #ccc;padding:0 8px;outline:none;flex:1;min-width:120px}
+.empty{padding:2rem;text-align:center;color:#aaa;font-size:14px}
+/* CERIMONIAL */
+.ch{padding:.9rem 1.25rem .75rem;border-bottom:1px solid #eee;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.ch-title{font-size:15px;font-weight:700;flex:1;color:#4a1285}
+.live{font-size:11px;padding:3px 10px;border-radius:6px;background:#F3E5F5;color:#7b2d8b;border:1px solid #CE93D8}
+.cer-filters{padding:.5rem 1.25rem;border-bottom:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.cf{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid #ccc;background:#fff;font-size:12px;font-weight:500;color:#888;cursor:pointer;user-select:none}
+.cf .cfd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cf.on{border-color:currentColor}
+.cl{padding:.5rem 1.25rem 1rem;max-height:510px;overflow-y:auto}
+.cer-group{margin-bottom:14px}
+.cer-gh{padding:.4rem 0 .3rem;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-bottom:2px solid currentColor;margin-bottom:5px}
+.cc{display:flex;align-items:center;gap:12px;padding:.75rem 1rem;border-radius:10px;margin-bottom:4px;border-left:4px solid transparent}
+.cd{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.cn{font-size:16px;font-weight:700;color:#1a1a1a}
+.cs2{font-size:11px;color:#666;margin-top:3px;line-height:1.4}
+.cc-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;flex-shrink:0;white-space:nowrap;border:1px solid transparent}
+/* ABA ALMOÇO */
+.almoco-header{padding:.9rem 1.25rem;border-bottom:1px solid #eee}
+.almoco-title{font-size:15px;font-weight:700;color:#4a1285;margin-bottom:.5rem}
+.voucher-summary{display:flex;gap:10px;flex-wrap:wrap}
+.vs{border-radius:10px;padding:.6rem 1rem;flex:1;min-width:100px;text-align:center}
+.vs .vs-num{font-size:22px;font-weight:700}
+.vs .vs-label{font-size:11px;margin-top:2px;opacity:.8}
+.vs-total{background:#F3E5F5;color:#7b2d8b}
+.vs-entregue{background:#E8F5E9;color:#2E7D32}
+.vs-saldo{background:#E3F2FD;color:#1565C0}
+.vs-alerta{background:#FFEBEE;color:#C62828}
+.almoco-search{padding:.65rem 1.25rem;border-bottom:1px solid #eee}
+.almoco-search input{width:100%;font-size:14px;padding:0 12px;height:36px;border-radius:8px;border:1px solid #c8b4e0;outline:none}
+.almoco-list{max-height:490px;overflow-y:auto}
+.al-row{display:flex;align-items:center;gap:10px;padding:.55rem 1.25rem;border-bottom:1px solid #f0e8ff}
+.al-row:last-child{border-bottom:none}
+.al-sub{font-size:13px;font-weight:600;color:#4a1285;flex:1;min-width:0}
+.al-info{font-size:11px;color:#888;display:flex;gap:10px;margin-top:2px;flex-wrap:wrap}
+.al-info span{white-space:nowrap}
+.al-voucher{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.al-voucher input{width:52px;height:28px;border-radius:7px;border:1px solid #c8b4e0;text-align:center;font-size:13px;font-weight:600;color:#4a1285;outline:none}
+.btn-entregar{height:30px;padding:0 12px;font-size:12px;font-weight:600;border-radius:7px;border:1px solid #c8b4e0;background:#fff;color:#7b2d8b;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.btn-entregar:hover{background:#faf5ff}
+.btn-entregar.done{background:#E8F5E9;border-color:#81C784;color:#2E7D32}
+.al-sobra{font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;flex-shrink:0}
+.sobra-ok{background:#E8F5E9;color:#2E7D32}
+.sobra-falta{background:#FFEBEE;color:#C62828}
+.sobra-zero{background:#f5f5f3;color:#888}
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;border:1px solid #ddd;padding:1.4rem;width:400px;max-width:95vw;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:1rem;color:#4a1285}
+.modal label{font-size:12px;color:#555;display:block;margin-bottom:3px;margin-top:10px}
+.modal input,.modal select{width:100%;font-size:13px;height:34px;border-radius:8px;border:1px solid #c8b4e0;padding:0 10px;outline:none}
+.modal input:focus,.modal select:focus{border-color:#7b2d8b}
+.tipo-row{display:flex;gap:6px;margin-top:4px}
+.tb{flex:1;height:30px;font-size:12px;border-radius:7px;border:1px solid #c8b4e0;background:#fff;color:#888;cursor:pointer;font-weight:500}
+.tb.ac{background:#F3E5F5;border-color:#CE93D8;color:#7b2d8b}
+.ma{display:flex;gap:8px;margin-top:1.2rem}
+.ma button{flex:1;height:34px;font-size:13px;font-weight:600;border-radius:8px;border:1px solid #ccc;cursor:pointer}
+.mc{background:#fff;color:#888}
+.mk{background:#7b2d8b;border-color:#7b2d8b;color:#fff}
+.status-bar{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:.6rem 1rem;font-size:13px;color:#8B6914;margin-bottom:1rem;display:none}
+.status-bar.show{display:block}
+.sync-bar{padding:.35rem 1.25rem;font-size:11px;color:#aaa;border-top:1px solid #eee;display:flex;gap:6px;align-items:center}
+.sd{width:6px;height:6px;border-radius:50%;background:#ccc;flex-shrink:0}
+.sd.ok{background:#2d7a4f}.sd.sy{background:#EF9F27}.sd.er{background:#E24B4A}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="status-bar" id="status-bar"></div>
+<div class="card">
+  <div class="banner">
+    <div style="flex:1">
+      <div class="banner-title">Colégio de Presidentes CJA — OAB/RS</div>
+      <div class="banner-sub">Credenciamento e Gestão de Vouchers</div>
+    </div>
+    <div class="cnt-row">
+      <div class="hcnt">Presentes: <strong id="cnt-p">0</strong></div>
+      <div class="hcnt">Total: <strong id="cnt-t">0</strong></div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tab-cr" onclick="switchTab('cr')">Credenciamento</button>
+    <button class="tab" id="tab-cer" onclick="switchTab('cer')">Cerimonial</button>
+    <button class="tab" id="tab-al" onclick="switchTab('al')">🍽 Almoço</button>
+  </div>
+
+  <!-- CREDENCIAMENTO -->
+  <div class="pane active" id="pane-cr">
+    <div class="export-row"><button class="btn-exp" onclick="exportCSV()">⬇ Exportar presenças</button></div>
+    <div class="sr">
+      <input type="text" id="search" placeholder="Buscar por nome, subseção ou cargo..." autocomplete="off" spellcheck="false" oninput="renderCr()">
+      <button class="btn-add" onclick="openModal()">+ Adicionar</button>
+    </div>
+    <div class="list" id="list-area"><div class="empty">Conectando...</div></div>
+  </div>
+
+  <!-- CERIMONIAL -->
+  <div class="pane" id="pane-cer">
+    <div class="ch">
+      <div class="ch-title">Presentes no evento</div>
+      <div class="hcnt" style="background:#F3E5F5;color:#7b2d8b">Total: <strong id="cer-cnt">0</strong></div>
+      <div class="live">ao vivo</div>
+    </div>
+    <div class="cer-filters" id="cer-filters"></div>
+    <div class="cl" id="cer-list"><div class="empty">Nenhuma presença registrada ainda.</div></div>
+  </div>
+
+  <!-- ALMOÇO -->
+  <div class="pane" id="pane-al">
+    <div class="almoco-header">
+      <div class="almoco-title">Gestão de Vouchers — Almoço</div>
+      <div class="voucher-summary">
+        <div class="vs vs-total"><div class="vs-num" id="v-total">232</div><div class="vs-label">Disponíveis p/ subseções</div></div>
+        <div class="vs vs-entregue"><div class="vs-num" id="v-entregue">0</div><div class="vs-label">Entregues</div></div>
+        <div class="vs vs-saldo"><div class="vs-num" id="v-saldo">232</div><div class="vs-label">Saldo</div></div>
+        <div class="vs vs-alerta" id="vs-alerta-box" style="display:none"><div class="vs-num" id="v-falta">0</div><div class="vs-label">Faltando</div></div>
+      </div>
+      <div style="font-size:11px;color:#888;margin-top:.5rem">18 vouchers reservados para Diretoria/Seccional (entregues à Dra. Isadora)</div>
+    </div>
+    <div class="almoco-search">
+      <input type="text" id="al-search" placeholder="Buscar subseção..." oninput="renderAl()" autocomplete="off">
+    </div>
+    <div class="almoco-list" id="almoco-list"><div class="empty">Conectando...</div></div>
+  </div>
+
+  <div class="sync-bar">
+    <div class="sd" id="sd"></div>
+    <span id="ss">Conectando...</span>
+    <span style="flex:1"></span><span id="st"></span>
+  </div>
+</div>
+</div>
+
+<!-- MODAL ADICIONAR -->
+<div class="overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Adicionar participante</h3>
+    <label>Tipo</label>
+    <div class="tipo-row">
+      <button class="tb ac" id="tipo-sub" onclick="setTipo('sub')">Subseção</button>
+      <button class="tb" id="tipo-aut" onclick="setTipo('aut')">Autoridade / Palestrante</button>
+      <button class="tb" id="tipo-ext" onclick="setTipo('ext')">Externo</button>
+    </div>
+    <label>Nome completo</label>
+    <input type="text" id="m-nome" placeholder="Nome" autocomplete="off">
+    <div id="bloco-sub">
+      <label>Subseção</label>
+      <select id="m-sub"></select>
+    </div>
+    <div id="bloco-aut" style="display:none">
+      <label>Cargo / Instituição</label>
+      <input type="text" id="m-cargo-aut" placeholder="ex.: Presidente da OAB/RS" autocomplete="off">
+    </div>
+    <div id="bloco-ext" style="display:none">
+      <label>Cargo / Vínculo</label>
+      <input type="text" id="m-cargo-ext" placeholder="ex.: Acompanhante" autocomplete="off">
+    </div>
+    <label>Cargo na CJA / Função</label>
+    <input type="text" id="m-cargo" placeholder="ex.: Presidente da CJA" autocomplete="off">
+    <div class="ma">
+      <button class="mc" onclick="closeModal()">Cancelar</button>
+      <button class="mk" onclick="confirmModal()">Adicionar e registrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+// Firebase inicializado no final do script para não bloquear se indisponível
+var db, dbRef;
+
+// ── DIRETORIA CJA (aparecem em destaque no cerimonial) ─────────────────────
+var DIR_CJA = [
+  {n:"Felipe Damian",          c:"Presidente da CJA OAB/RS",                 cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Isadora Pavoni",         c:"Vice-Presidente da CJA OAB/RS",            cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Gabriel Larré",          c:"Secretário Geral da CJA",                  cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Maria Eugenia Giulian",  c:"Secretária Geral Adjunta da CJA",          cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Dayel Bittencourt",      c:"Diretor de Interiorização da CJA",         cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Vanessa Cescon",         c:"Diretora de Interiorização da CJA",        cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Natália Miranda",        c:"Diretora de Interiorização da CJA",        cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Paloma Teodoro",         c:"Diretora de Eventos da CJA",               cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Roberta Bitarello",      c:"Diretora de Comunicação da CJA",           cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Bibiana Luft",           c:"Diretora Adjunta de Comunicação da CJA",   cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Eduarda Fortes",         c:"Diretora Acadêmica da CJA",                cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Arthur Schmitz",         c:"Diretor Acadêmico da CJA",                 cat:"dir-cja", sub:"Porto Alegre"},
+  {n:"Thanius Martins",        c:"Diretor Acadêmico da CJA",                 cat:"dir-cja", sub:"Porto Alegre"},
+];
+
+// ── AUTORIDADES OAB / PALESTRANTES ─────────────────────────────────────────
+var AUTORIDADES = [
+  // Autoridades OAB
+  {n:"Leonardo Lamachia",       c:"Presidente da OAB/RS",                                      cat:"aut"},
+  {n:"Gerson Fischmann",        c:"Diretor-Geral da Escola Superior de Advocacia",              cat:"aut"},
+  {n:"Ana Lúcia Kaercher Piccoli", c:"Secretária-Geral da OAB/RS",                            cat:"aut"},
+  {n:"Regina Pereira Soares",   c:"Secretária-Geral Adjunta da OAB/RS",                        cat:"aut"},
+  {n:"Claridê Chitolina Taffarel", c:"Vice-Presidente da OAB/RS",                             cat:"aut"},
+  {n:"Jorge Luiz Dias Fara",    c:"Diretor-Tesoureiro da OAB/RS",                              cat:"aut"},
+  {n:"Neusa Maria Rolim Bastos", c:"Presidente da CAARS",                                      cat:"aut"},
+  {n:"Alessandra Glufke",       c:"Secretária-Geral da CAARS",                                 cat:"aut"},
+  {n:"Juliano Sampaio Gonçalves", c:"Secretário-Geral Adjunto da CAARS",                      cat:"aut"},
+  {n:"Paula Grill Silva Pereira", c:"Vice-Presidente da CAARS",                               cat:"aut"},
+  // Palestrantes
+  {n:"Matheus Portella Ayres Torres", c:"Diretor Tesoureiro da CAARS — Palestrante",          cat:"palestrante"},
+  {n:"Bruna Razera",            c:"Vice-Diretora da Escola Superior de Advocacia — Palestrante", cat:"palestrante"},
+  {n:"Pedro Alfonsin",          c:"Conselheiro Federal da OAB/RS — Palestrante",              cat:"palestrante"},
+  {n:"Antônio Zanette",         c:"Presidente da Comissão de Direito Agrário da OAB/RS — Palestrante", cat:"palestrante"},
+  {n:"Fernanda Pandolfi",       c:"Jornalista, MBA em Marketing de Moda — Palestrante",       cat:"palestrante"},
+  {n:"Jader Marques",           c:"Advogado Criminalista, Especialista e Doutor em Direito — Palestrante", cat:"palestrante"},
+  {n:"Túlio Milmann",           c:"Jornalista e Consultor — Palestrante",                     cat:"palestrante"},
+];
+
+// ── SUBSEÇÕES ───────────────────────────────────────────────────────────────
+// [sub, nome, cargo, pres=true se presidente/representante]
+var SUBSECOES_DATA = {
+"AGUDO":[
+  ["Gustavo Belladona da Silva Pessoa","Presidente da CJA",true],
+  ["Andriele Mostardeiro","Vice-Presidente da CJA"],
+],
+"ALVORADA":[
+  ["Amanda Carlesso","Presidente da CJA",true],
+  ["Priscila Alberton","Vice-Presidente da CJA"],
+  ["Greice Kelly Carlos","Membro"],
+],
+"BAGÉ":[
+  ["Gabriéli Feijó Mazuhi","Presidente da CJA",true],
+  ["Letícia Guterres Cézar","Vice-Presidente da CJA"],
+  ["Cézar Coutinho de Souza","Membro"],
+  ["Maria Eduarda Simões de Lima","Membro"],
+],
+"BENTO GONÇALVES":[
+  ["Filipe Heuser de Almeida","Secretário Geral",true],
+  ["Bianca Dall Agnol","Membro"],
+  ["Desirée Kunzler","Membro"],
+  ["Mirela Arnhold Graminho","Membro"],
+  ["Volmir Beal","Membro"],
+],
+"CACHOEIRINHA":[
+  ["Lucimara Santos Maciel","Presidente da CJA",true],
+  ["André da Silva Martins","Membro"],
+  ["Bianca Westphal","Membro"],
+  ["Cristiano Vieira de Vieira Filho","Membro"],
+  ["Juliane Paupério","Membro"],
+  ["Julien Ribeiro Soares","Membro"],
+],
+"CAMAQUÃ":[
+  ["Hemerson Laerte Medeiros Santos","Presidente da CJA",true],
+  ["Helenis Medeiros Santos","Vice-Presidente da CJA"],
+],
+"CANELA / GRAMADO":[
+  ["Arthur Dambros Gomes","Presidente da CJA",true],
+  ["Eduarda Machado Azzi","Vice-Presidente da CJA"],
+],
+"CANGUÇU":[
+  ["Astrid Nörnberg Göetzke","Presidente da CJA",true],
+  ["Alice Hamm","Vice-Presidente da CJA"],
+  ["Cristian Zaneti","Membro"],
+  ["Miguel Lessa","Presidente da Subseção de Canguçu"],
+],
+"CANOAS":[
+  ["Luccas Francisco Machado","Presidente da CJA",true],
+  ["Sara de Oliveira Dal Más","Vice-Presidente da CJA"],
+  ["Pedro Henrique Brum","Secretário"],
+  ["Alessandra Machado Berutte","Membro"],
+  ["Ana Laura Machado","Membro"],
+  ["Ananda Callil Nascimento da Rosa","Membro"],
+  ["Bruno Nedel","Membro"],
+  ["Caroline Pooch de Vargas","Membro"],
+  ["Claudia Doralina Vasconcellos","Membro"],
+  ["Daniele de Lima Nasiloski","Membro"],
+  ["David Lucena","Membro"],
+  ["Edne Ellen Cruz de Lima","Membro"],
+  ["Fabiéle do Amaral Viegas","Membro"],
+  ["Gilvan Rosa","Membro"],
+  ["Giselle Dias","Membro"],
+  ["Guilherme Quintana Campos","Membro"],
+  ["Hiasmynn Quinhones","Membro"],
+  ["Ivaci Bratkowski","Membro"],
+  ["Jeferson Oliveira Bittencourt","Membro"],
+  ["Julia Monteiro","Membro"],
+  ["Karinne Bennech","Membro"],
+  ["Larissa Marques","Membro"],
+  ["Laura Araujo Xavier","Membro"],
+  ["Leonardo Augusto Maria Rossi","Membro"],
+  ["Maria Luíza Santos Nunes","Membro"],
+  ["Mariane Ferreira","Membro"],
+  ["Micheli Hamdan","Membro"],
+  ["Priscila Cardoso","Membro"],
+  ["Rhaiza Enya Pires Freitas","Membro"],
+  ["Rodrigo Cananéa Lemos","Membro"],
+  ["Sabrina Batistuzzo da Silva","Membro"],
+  ["Tainá Vitória Brzeski Sanchez","Membro"],
+  ["Tamara Mazzucco","Membro"],
+  ["Tiarla Limberger","Membro"],
+  ["Victória de Souza","Membro"],
+  ["Vithoria Lopes","Membro"],
+  ["Vitor Vieira","Membro"],
+],
+"CASCA":[
+  ["Jovana De Cezaro","Presidente da CJA",true],
+],
+"CAXIAS DO SUL":[
+  ["Eduardo Bresolin","Presidente da CJA",true],
+  ["Letícia Menegat","Vice-Presidente da CJA"],
+  ["Raquel Cassini","Conselheira da Subseção"],
+],
+"CRUZ ALTA":[
+  ["Caroline Donato Comim Nascimento","Presidente da CJA",true],
+  ["Tainá Costa","Vice-Presidente da CJA"],
+  ["Raiza Landfeldt","Membro"],
+],
+"ENCANTADO":[
+  ["Gabriela Fossá Machado","Presidente da CJA",true],
+  ["Ana Luísa Matiello Zanotelli","Vice-Presidente da CJA"],
+],
+"ERECHIM":[
+  ["Jean Lucas Pacheco","Presidente da CJA",true],
+],
+"ESTEIO":[
+  ["Priscila Francielle dos Santos Knoop","Presidente da CJA",true],
+  ["Luise Stuker Trajano","Vice-Presidente da CJA"],
+  ["Caroline de Macedo Menegotto","Secretária-Geral da CJA"],
+  ["Fernanda Reis da Silveira","Presidente da Subseção"],
+  ["Alice Ribeiro","Membro"],
+  ["Flávia Giovana Ferreira","Membro"],
+],
+"ESTRELA":[
+  ["Nitchela Dexheimer","Presidente da CJA",true],
+],
+"FREDERICO WESTPHALEN":[
+  ["Reinoldo Maidana Jr.","Presidente da CJA",true],
+  ["Hermes Forchesatto Bueno","Vice-Presidente da CJA"],
+  ["Paula Augustini","Secretária Geral"],
+],
+"GARIBALDI / CARLOS BARBOSA":[
+  ["Amanda Rosito","Presidente da CJA",true],
+  ["Rafaela Salvatori","Vice-Presidente da CJA"],
+],
+"GUAÍBA":[
+  ["Júlia Mattos Garcia","Presidente da CJA",true],
+  ["Fernanda Poleze","Vice-Presidente da CJA"],
+  ["Bruna Koch","Coordenadora-Geral CJA"],
+  ["Gilvan Naibert","Presidente da Subseção"],
+  ["Arthur Nessi Braga","Membro"],
+  ["Camilla Calvete","Membro"],
+  ["Cristiane Reckziegel","Membro"],
+  ["Douglas Rosa","Membro"],
+  ["Fernanda Campos","Membro"],
+  ["Fernanda Raimundo Mello Silveira","Membro"],
+  ["Gustavo Gabriel Duarte Crizel","Membro"],
+  ["Izabela Rauber Guimarães","Membro"],
+  ["Jordana Carvalho","Membro"],
+  ["Luiza Naibert","Membro"],
+  ["Mariana D'Augustin Cruz","Membro"],
+  ["Mariana Ruszkowski","Membro"],
+  ["Nicole Escalante","Membro"],
+  ["Pedro Rashid","Membro"],
+  ["Sabrina Ligabue","Membro"],
+  ["Suélen Correa","Membro"],
+],
+"IBIRUBÁ":[
+  ["Duani Saggin Pires","Presidente da CJA",true],
+  ["Luana Saggin","Vice-Presidente da CJA"],
+],
+"IGREJINHA":[
+  ["Augusto Gabriel Koch","Presidente da CJA",true],
+  ["Gabriela Krummenauer","Vice-Presidente da CJA"],
+  ["Eduardo Pereira","Membro"],
+  ["Matheus Kunst","Membro"],
+],
+"IJUÍ":[
+  ["Maiara Priscila Carvalho Mazzurana","Presidente da CJA",true],
+  ["Mylena Rohenkohl","Vice-Presidente da CJA"],
+  ["Bruna Hahn","2ª Secretária"],
+  ["Fernanda Guimarães","1ª Secretária"],
+  ["Laura Jurack","Secretária Adjunta"],
+  ["Ana Laura Sperotto","Membro"],
+  ["Eraldino Mastella Junior","Membro"],
+  ["Gustavo Nunes","Membro"],
+  ["Henri Vilani","Membro"],
+  ["Maria Eduarda Bianchini","Membro"],
+  ["Mérian Padilha Alves","Membro"],
+  ["Nils Bronzatto","Membro"],
+],
+"LAGOA VERMELHA":[
+  ["Bárbara Varnier Pomatti","Presidente da CJA",true],
+  ["Viviane Holleben Machado","Representando o Presidente da Subseção"],
+  ["Julia Gregol Puerari","Jovem Advogada"],
+],
+"LAJEADO":[
+  ["Gabriel Delving Ely","Presidente da CJA",true],
+  ["Amanda Izabel Lauxen","Membro"],
+  ["Guilherme Patussi","Membro"],
+  ["Paola Reis Bogorni","Membro"],
+  ["Victoria Sulzbach","Membro"],
+],
+"MARAU":[
+  ["Rafhaelle Cristina Alves Fernandes","Presidente da CJA",true],
+  ["Joana Tramontina","Membro"],
+  ["Letícia Abati Zanotto","Membro"],
+  ["Lucas Parizzi Bernardi","Membro"],
+],
+"MONTENEGRO":[
+  ["João Pedro Peralta","Presidente da CJA",true],
+  ["Flávia Esteves","Vice-Presidente da CJA"],
+  ["Talia dos Santos","Secretária"],
+  ["Eduarda Flores da Rosa","Diretora de Comunicação e Marketing"],
+  ["Emily Dörr","Membro"],
+  ["Jessica Freisleben","Membro"],
+],
+"NONOAI":[
+  ["Kelly de Vargas","Presidente da CJA",true],
+],
+"NOVA PRATA":[
+  ["Felipe Assis Lunelli Dutra Rodrigues","Presidente da CJA",true],
+  ["Aline Magoga","Vice-Presidente da CJA"],
+  ["Daiana Capelari","Secretária Geral da CJA"],
+  ["Angela Bristot","Secretária Geral Adjunta da Subseção"],
+  ["Juliane Guadagnin","Membro"],
+],
+"NOVO HAMBURGO":[
+  ["Amábily Mattner Mello","Presidente da CJA",true],
+  ["Maike Barbosa","Vice-Presidente"],
+  ["Ana Paula Bohn","Secretária"],
+  ["Luiza Knebel","Diretora de Eventos"],
+],
+"OSÓRIO":[
+  ["Vinícius Kercher da Silva","Membro",true],
+],
+"PALMEIRA DAS MISSÕES":[
+  ["Luiza da Rosa","Representando o Presidente da CJA — Matheus Schwantes Farias",true],
+],
+"PANAMBI":[
+  ["Jocasta Elicker Melo","Presidente da CJA",true],
+  ["Leonardo Marcus","Secretário-Geral"],
+  ["Jean Carlos Franke","Membro"],
+  ["Julia Schwarz","Membro"],
+],
+"PASSO FUNDO":[
+  ["Bruna Marques Wojahn","Presidente da CJA",true],
+  ["Marina Meneghuini","Membro"],
+  ["Paulo Wojahn","Acompanhante"],
+],
+"PELOTAS":[
+  ["Carolina Hackbart Batista","Presidente da CJA",true],
+  ["Ana Carolina Giudice Beber","Vice-Presidente da CJA"],
+  ["Andressa Silva da Silva","Membro"],
+  ["Bruna Cruz de Castro","Membro"],
+  ["Bruno Gulart Carvalho Vieira","Membro"],
+  ["Dilceu Atilio Lena Junior","Membro"],
+  ["Elisa Moreira Bezerra","Membro"],
+  ["Lidiane Duarte Pereira","Membro"],
+  ["Maíra dos Santos Vieira","Membro"],
+  ["Marcelo da Silva Ritta","Membro"],
+  ["Marinês Lopes de Rosa","Membro"],
+  ["Médelin Porto da Silva","Membro"],
+  ["Ricardo da Silva Prietsch","Membro"],
+],
+"PORTO ALEGRE":[
+  ["Felipe Damian","Presidente da CJA OAB/RS",true],
+  ["Isadora Pavoni","Vice-Presidente da CJA"],
+  ["Gabriel Larré","Secretário Geral"],
+  ["Maria Eugenia Giulian","Secretária Geral Adjunta"],
+  ["Dayel Bittencourt","Diretor de Interiorização"],
+  ["Vanessa Cescon","Diretora de Interiorização"],
+  ["Natália Miranda","Diretora de Interiorização"],
+  ["Paloma Teodoro","Diretora de Eventos"],
+  ["Roberta Bitarello","Diretora de Comunicação"],
+  ["Bibiana Luft","Diretora Adjunta de Comunicação"],
+  ["Eduarda Fortes","Diretora Acadêmica"],
+  ["Arthur Schmitz","Diretor Acadêmico"],
+  ["Thanius Martins","Diretor Acadêmico"],
+  ["Amanda Beck Beltrame","Membro CJA"],
+  ["Bruno Delano","Membro"],
+  ["Davi Dalmas da Silva","Membro"],
+  ["Eduardo Nascimento","Membro CJA"],
+  ["Enrico Abrão Bertoluci","Membro"],
+  ["Fernanda Cobalchini","Membro"],
+  ["Giulia Pradella Cavalheiro","Membro"],
+  ["Laura Luiza Vargas","Membro"],
+  ["Laura Marquisio Grechi","Membro"],
+  ["Liana Hentz Bauer","Membro CJA"],
+  ["Lucio Trevizan","Membro"],
+  ["Mariana dos Santos Eilert","Membro"],
+  ["Rhaiza Flores","Membro CJA"],
+  ["Thiago Millis","Membro CJA"],
+  ["Vera Fischer Macarthy","Membro CJA"],
+  ["Yasmin Carvalho de Senna","Membro"],
+],
+"RIO GRANDE":[
+  ["Jander Dantas Alves","Presidente da CJA",true],
+  ["Natália Lima","Vice-Presidente da CJA"],
+  ["Maria Clara Gouveia","Secretária da CJA"],
+  ["Ary Silva Júnior","Presidente da Subseção"],
+  ["Cláudia Rojane M Bastos","Membro"],
+  ["Felype Prado Nascimento","Membro"],
+  ["Francine Domingues","Membro"],
+  ["Ingrid Guimarães","Membro"],
+  ["Jeniffer Mello Maciel","Membro"],
+  ["Josineia Leivas","Membro"],
+  ["Kevin Oliveira","Membro"],
+  ["Lorize Domingas","Membro"],
+  ["Magda Dornelles Gomes","Membro"],
+  ["Marina Avila","Vice-Presidente da Comissão de Ética"],
+  ["Nícolas do Carmo","Membro"],
+  ["Shirley Santos","Membro"],
+  ["Vitória Silveira Silva","Membro"],
+],
+"RIO PARDO":[
+  ["Ronilson Miranda Frare","Presidente da CJA",true],
+],
+"SANANDUVA":[
+  ["Gabrieli Sônia Longo","Presidente da CJA",true],
+  ["Rafael Bonêz","Membro"],
+],
+"SANT'ANA DO LIVRAMENTO":[
+  ["João Motta","Presidente da CJA",true],
+  ["Anayara Fantinel","Membro"],
+  ["Eduardo Bastilho","Membro"],
+  ["Nicolas Maciel","Membro"],
+],
+"SANTA CRUZ DO SUL":[
+  ["Filipe Ariel Brandt","Presidente da CJA",true],
+  ["Aline Marques Rocha","Vice-Presidente da CJA"],
+  ["Ana Paula da Silva Jardim","Membro"],
+  ["Anderson Morais da Silva","Membro"],
+  ["Arthur Feltrin Milani","Membro"],
+  ["Arthur Martins Nascimento","Membro"],
+  ["Bruna Rabuske Limberger","Membro"],
+  ["Claúdio Pereira Batista","Membro"],
+  ["Emanuelly Kunzel Gomes","Membro"],
+  ["Érica Sabrina Laufer Castro","Membro"],
+  ["Felipe D'Avila Severo","Membro"],
+  ["Felipe Ziemann Ruoso","Membro"],
+  ["Giuseppe Grando","Membro"],
+  ["Júlia Carolina Budde","Membro"],
+  ["Paula Meinhardt Aguiar","Membro"],
+  ["Tayla Cassiany Meirelles Severo","Membro"],
+  ["Thierry Henriques Lopes","Membro"],
+  ["Vanessa Thiesen Kroth","Membro"],
+],
+"SANTA MARIA":[
+  ["Otavio Pergher Pereira da Silva","Presidente da CJA",true],
+  ["Amanda Nunes","Membro"],
+  ["Andyara Ludovico","Membro"],
+  ["Glauber Ortiz","Conselheiro OAB Subseção Santa Maria"],
+  ["Juarez Fernandes","Membro"],
+  ["Juliane Müller Korb","Presidente Subseção Santa Maria"],
+  ["Lariane Londero","Membro"],
+  ["Laura Schmitt","Membro"],
+  ["Luisa Girardon","Membro"],
+  ["Nardina Zitske","Membro"],
+  ["Pedro Maurente","Membro"],
+  ["Vitor Ávila","Membro"],
+],
+"SANTA ROSA":[
+  ["Rafaela Fronza","Presidente da CJA",true],
+  ["João Vitor David","Secretário-Geral da Subseção"],
+  ["Renê Carlos Schubert Júnior","Presidente da Subseção"],
+  ["Nerci Antônio Spohr","Delegado CAARS"],
+],
+"SANTIAGO E JAGUARI":[
+  ["Angelita Machado","Presidente da CJA",true],
+  ["Gabriela Brilhante Rosado","Delegada da ESA — Subseção Santiago e Jaguari"],
+],
+"SANTO ÂNGELO":[
+  ["Vinicius Batista Morais","Presidente da CJA",true],
+  ["Luiz Felipe Mazuco Pinto","Membro"],
+],
+"SANTO ANTÔNIO DA PATRULHA":[
+  ["Natália Muniz da Cunha","Presidente da CJA",true],
+  ["Luisa Pacheco da Silva","Secretária"],
+],
+"SÃO GABRIEL":[
+  ["Paulo Roberto Diniz da Silva Júnior","Presidente da CJA",true],
+  ["Sandy Rocha","Presidente da CJA"],
+  ["Fernanda Domingues","Membro"],
+  ["Juliana Silveira Rodrigues","Membro"],
+],
+"SÃO JERÔNIMO":[
+  ["Lucas Chananeco","Presidente da CJA",true],
+  ["Felipe da Silva Lima","Presidente da Subseção"],
+  ["João Otávio Gorini Raichle","Vice-Presidente"],
+],
+"SÃO LEOPOLDO":[
+  ["Vitória Maragno Zang","Presidente da CJA",true],
+  ["Vitória Santos","Vice-Presidente da CJA"],
+  ["Gabriela Kreling","Secretária"],
+  ["Giulia Lima","Membro"],
+  ["Henrique Rodrigues","Membro"],
+  ["Morgana Maciel","Membro"],
+  ["Nathalia de Oliveira","Membro"],
+  ["Nícolas Barcelos","Membro"],
+],
+"SÃO SEPÉ":[
+  ["Alexandre Pires Bittencourt","Presidente da CJA",true],
+],
+"SAPIRANGA":[
+  ["Bruno Steyer","Presidente da CJA",true],
+  ["André Henrique Bender","Membro"],
+  ["Gabriela Walbrinch Pastorio","Membro"],
+],
+"SAPUCAIA DO SUL":[
+  ["Caroline Ristow Pahim","Presidente da CJA",true],
+  ["Fernanda Tavares Garcia","Membro"],
+],
+"SARANDI":[
+  ["Bruna Zanini Martins De Marco","Presidente da CJA",true],
+],
+"TAQUARA":[
+  ["Matheus Portella","Presidente da CJA",true],
+  ["Eduarda Kichler","Vice-Presidente"],
+],
+"TRIUNFO":[
+  ["Rafael Panczinski de Oliveira","Presidente da CJA",true],
+],
+"TUPANCIRETÃ":[
+  ["Ionathan Junges","Representando a Presidente Lucimara Rocha de Souza",true],
+],
+"VACARIA":[
+  ["Samantha Boeira de Oliveira","Presidente da CJA",true],
+],
+"VENÂNCIO AIRES":[
+  ["Jéssica Alessandra Becker","Presidente da CJA",true],
+  ["Ana Luiza Macedo","Membro"],
+  ["Daiara Gomes da Luz","Membro"],
+  ["Franciele Ines Lopes","Membro"],
+],
+"VIAMÃO":[
+  ["Fabiúla Paganini Fernandes","Presidente da CJA",true],
+  ["Renata Kerkoff","Presidente da Subseção de Viamão"],
+],
+};
+
+// Vouchers por subseção (mínimo 4)
+var VOUCHERS_BASE = {
+"AGUDO":4,"ALVORADA":4,"BAGÉ":4,"BENTO GONÇALVES":5,"CACHOEIRINHA":6,"CAMAQUÃ":4,"CANELA / GRAMADO":4,"CANGUÇU":4,"CANOAS":4,"CASCA":4,"CAXIAS DO SUL":4,"CRUZ ALTA":4,"ENCANTADO":4,"ERECHIM":4,"ESTEIO":6,"ESTRELA":4,"FREDERICO WESTPHALEN":4,"GARIBALDI / CARLOS BARBOSA":4,"GUAÍBA":4,"IBIRUBÁ":4,"IGREJINHA":4,"IJUÍ":4,"LAGOA VERMELHA":4,"LAJEADO":5,"MARAU":4,"MONTENEGRO":6,"NONOAI":4,"NOVA PRATA":5,"NOVO HAMBURGO":4,"OSÓRIO":4,"PALMEIRA DAS MISSÕES":4,"PANAMBI":4,"PASSO FUNDO":4,"PELOTAS":4,"PORTO ALEGRE":4,"RIO GRANDE":4,"RIO PARDO":4,"SANANDUVA":4,"SANT'ANA DO LIVRAMENTO":4,"SANTA CRUZ DO SUL":4,"SANTA MARIA":4,"SANTA ROSA":4,"SANTIAGO E JAGUARI":4,"SANTO ÂNGELO":4,"SANTO ANTÔNIO DA PATRULHA":4,"SÃO GABRIEL":4,"SÃO JERÔNIMO":4,"SÃO LEOPOLDO":4,"SÃO SEPÉ":4,"SAPIRANGA":4,"SAPUCAIA DO SUL":4,"SARANDI":4,"TAQUARA":4,"TRIUNFO":4,"TUPANCIRETÃ":4,"VACARIA":4,"VENÂNCIO AIRES":4,"VIAMÃO":4
+};
+// Total: 58 subseções × 4 = 232 vouchers disponíveis para subseções
+
+var CATS_CER = [
+  {id:"aut",       label:"Autoridades OAB/RS/CAARS/ESA", dot:"#4a1285",bg:"#F3E5F5",tc:"#4a1285",bc:"#CE93D8"},
+  {id:"palestrante",label:"Palestrantes",               dot:"#1565C0",bg:"#E3F2FD",tc:"#1565C0",bc:"#90CAF9"},
+  {id:"dir-cja",   label:"Diretoria CJA",               dot:"#7b2d8b",bg:"#F8F0FF",tc:"#7b2d8b",bc:"#C8A0E0"},
+  {id:"pres-sub",  label:"Presidentes de Subseção",     dot:"#2E7D32",bg:"#E8F5E9",tc:"#2E7D32",bc:"#81C784"},
+  {id:"membro",    label:"Membros",                     dot:"#546E7A",bg:"#ECEFF1",tc:"#546E7A",bc:"#B0BEC5"},
+];
+
+var ALL_SUBS = Object.keys(SUBSECOES_DATA).sort(function(a,b){return a.localeCompare(b,"pt-BR");});
+
+function norm(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+function sk(s){ return s.replace(/[.#$\/\[\]'"]/g,"_"); }
+function getKey(sub,nome){ return sk("cja|||"+sub+"|||"+nome); }
+function isChecked(key){ var v=state.checkins[key]; return v===true||(v&&v.checked); }
+function getTime(key){ var v=state.checkins[key]; return (v&&v.time)?v.time:(v===true?"—":null); }
+function nowTime(){ return new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"}); }
+function csty(id){ return CATS_CER.find(function(c){return c.id===id;})||CATS_CER[CATS_CER.length-1]; }
+
+var state={checkins:{},extras:{},vouchers:{}};
+var editingKey=null;
+var activeTab="cr";
+var cerFilters={};
+CATS_CER.forEach(function(c){cerFilters[c.id]=true;});
+var modalTipo="sub";
+var saving=false;
+
+// ── RENDER CREDENCIAMENTO ───────────────────────────────────────────────────
+function renderCr(){
+  var q=norm((document.getElementById("search").value||"").trim());
+  var total=0, chkd=0;
+
+  // Contar autoridades e diretoria
+  AUTORIDADES.forEach(function(a){
+    var key=sk("aut|||"+a.n);
+    total++;if(isChecked(key))chkd++;
+  });
+  DIR_CJA.forEach(function(d){
+    var key=sk("dir|||"+d.n);
+    // Skip if already in PORTO ALEGRE subseção (they're there)
+  });
+
+  var htmlParts=[];
+
+  // Bloco: Autoridades OAB
+  var autHtml=renderGrpAut(q);
+  if(autHtml) htmlParts.push(autHtml);
+
+  // Blocos por subseção
+  ALL_SUBS.forEach(function(sub){
+    var membros=SUBSECOES_DATA[sub];
+    var filtered=q?membros.filter(function(m){return norm(m[0]).includes(q)||norm(m[1]).includes(q)||norm(sub).includes(q);}):membros;
+    if(!filtered.length)return;
+    var chkSub=membros.filter(function(m){return isChecked(getKey(sub,m[0]));}).length;
+    total+=membros.length;
+    chkd+=chkSub;
+    var done=chkSub===membros.length&&membros.length>0;
+    var rows=filtered.map(function(m){
+      var key=getKey(sub,m[0]);
+      var chk=isChecked(key);
+      if(editingKey===key){
+        return '<div class="er"><div class="ef">'
+          +'<input type="text" id="edit-nome" value="'+m[0].replace(/"/g,"&quot;")+'" autocomplete="off">'
+          +'<input type="text" id="edit-cargo" value="'+m[1].replace(/"/g,"&quot;")+'" placeholder="Cargo..." autocomplete="off">'
+          +'<button class="btn" style="background:#7b2d8b;border-color:#7b2d8b;color:#fff" data-action="save-edit" data-key="'+key+'">Salvar</button>'
+          +'<button class="btn" onclick="cancelEdit()">✕</button>'
+          +'</div></div>';
+      }
+      var pTag=m[2]?'<span class="pill p-pres">presidente</span>':"";
+      var t=chk&&getTime(key)?'<span style="font-size:11px;color:#aaa;margin-left:5px">⏱ '+getTime(key)+'</span>':"";
+      return '<div class="mr"><div class="mi">'
+        +'<span class="mn'+(chk?" chk":"")+'">'+m[0]+pTag+'</span>'+t
+        +'<div class="cargo-txt">'+m[1]+'</div>'
+        +'</div><div class="ra">'
+        +'<button class="btn bp'+(chk?" done":"")+'" data-action="toggle" data-key="'+key+'">'+(chk?"Presente":"Registrar")+'</button>'
+        +'<button class="btn ic" data-action="edit" data-key="'+key+'">✏</button>'
+        +'</div></div>';
+    }).join("");
+    htmlParts.push('<div class="sb"><div class="sh">'
+      +'<div class="sl">'+sub.charAt(0)+'</div>'
+      +'<div class="sn">'+sub+'</div>'
+      +'<div class="sbadge'+(done?" done":"")+'">'+chkSub+'/'+membros.length+'</div>'
+      +'</div><div class="ml">'+rows+'</div></div>');
+  });
+
+  // Extras
+  Object.keys(state.extras||{}).forEach(function(uid){
+    var ex=state.extras[uid];
+    var key=sk("extra|||"+uid);
+    total++;if(isChecked(key))chkd++;
+    if(q&&!norm(ex.nome).includes(q)&&!norm(ex.sub||"").includes(q))return;
+    var chk=isChecked(key);
+    var t=chk&&getTime(key)?'<span style="font-size:11px;color:#aaa;margin-left:5px">⏱ '+getTime(key)+'</span>':"";
+    htmlParts.push('<div class="sb"><div class="sh"><div class="sl" style="background:#FFF8E1;color:#8B6914">+</div>'
+      +'<div class="sn">'+(ex.sub||"Walk-in")+'</div></div>'
+      +'<div class="ml"><div class="mr"><div class="mi">'
+      +'<span class="mn'+(chk?" chk":"")+'">'+ex.nome+'<span class="pill p-wi">walk-in</span></span>'+t
+      +'<div class="cargo-txt">'+(ex.cargo||"")+'</div></div>'
+      +'<div class="ra"><button class="btn bp'+(chk?" done":"")+'" data-action="toggle" data-key="'+key+'">'+(chk?"Presente":"Registrar")+'</button>'
+      +'</div></div></div></div>');
+  });
+
+  document.getElementById("cnt-p").textContent=chkd;
+  document.getElementById("cnt-t").textContent=total;
+  var la=document.getElementById("list-area");
+  la.innerHTML=htmlParts.length?htmlParts.join(""):'<div class="empty">Nenhum resultado.</div>';
+}
+
+function renderGrpAut(q){
+  var aut=[].concat(AUTORIDADES);
+  var filtered=q?aut.filter(function(a){return norm(a.n).includes(q)||norm(a.c).includes(q);}):aut;
+  if(!filtered.length)return "";
+  var chkA=aut.filter(function(a){return isChecked(sk("aut|||"+a.n));}).length;
+  var rows=filtered.map(function(a){
+    var key=sk("aut|||"+a.n);
+    var chk=isChecked(key);
+    if(editingKey===key){
+      return '<div class="er"><div class="ef">'
+        +'<input type="text" id="edit-nome" value="'+a.n.replace(/"/g,"&quot;")+'" autocomplete="off">'
+        +'<input type="text" id="edit-cargo" value="'+a.c.replace(/"/g,"&quot;")+'" placeholder="Cargo..." autocomplete="off">'
+        +'<button class="btn" style="background:#7b2d8b;border-color:#7b2d8b;color:#fff" data-action="save-edit" data-key="'+key+'">Salvar</button>'
+        +'<button class="btn" onclick="cancelEdit()">✕</button>'
+        +'</div></div>';
+    }
+    var t=chk&&getTime(key)?'<span style="font-size:11px;color:#aaa;margin-left:5px">⏱ '+getTime(key)+'</span>':"";
+    var tag=a.cat==="palestrante"?'<span class="pill p-vip">palestrante</span>':"";
+    return '<div class="mr"><div class="mi">'
+      +'<span class="mn'+(chk?" chk":"")+'">'+a.n+tag+'</span>'+t
+      +'<div class="cargo-txt">'+a.c+'</div></div>'
+      +'<div class="ra"><button class="btn bp'+(chk?" done":"")+'" data-action="toggle" data-key="'+key+'">'+(chk?"Presente":"Registrar")+'</button>'
+      +'<button class="btn ic" data-action="edit" data-key="'+key+'">✏</button>'
+      +'</div></div>';
+  }).join("");
+  return '<div class="sb"><div class="sh" style="background:#faf5ff">'
+    +'<div class="sl" style="background:#e1bee7;color:#4a1285">★</div>'
+    +'<div class="sn">Autoridades OAB · Palestrantes</div>'
+    +'<div class="sbadge">'+chkA+'/'+aut.length+'</div>'
+    +'</div><div class="ml">'+rows+'</div></div>';
+}
+
+// ── RENDER CERIMONIAL ────────────────────────────────────────────────────────
+function renderCer(){
+  var groups={};
+  CATS_CER.forEach(function(c){groups[c.id]=[];});
+
+  AUTORIDADES.forEach(function(a){
+    var key=sk("aut|||"+a.n);
+    if(isChecked(key)) groups[a.cat==="palestrante"?"palestrante":"aut"].push({n:a.n,c:a.c,t:getTime(key)});
+  });
+
+  DIR_CJA.forEach(function(d){
+    // Check via Porto Alegre subseção key
+    var key=getKey("PORTO ALEGRE",d.n);
+    if(isChecked(key)) groups["dir-cja"].push({n:d.n,c:d.c,t:getTime(key)});
+  });
+
+  ALL_SUBS.forEach(function(sub){
+    SUBSECOES_DATA[sub].forEach(function(m){
+      var key=getKey(sub,m[0]);
+      if(isChecked(key)){
+        var cat=m[2]?"pres-sub":"membro";
+        // Se é diretoria CJA e está em Porto Alegre, já foi capturado acima
+        if(sub==="PORTO ALEGRE"){
+          var isDirCja=DIR_CJA.some(function(d){return norm(d.n)===norm(m[0]);});
+          if(isDirCja) return;
+        }
+        groups[cat].push({n:m[0],c:m[1]+" — "+sub,t:getTime(key)});
+      }
+    });
+  });
+
+  Object.keys(state.extras||{}).forEach(function(uid){
+    var ex=state.extras[uid];
+    var key=sk("extra|||"+uid);
+    if(isChecked(key)) groups["membro"].push({n:ex.nome,c:(ex.cargo||"Walk-in")+(ex.sub?" — "+ex.sub:""),t:getTime(key)});
+  });
+
+  var total=Object.values(groups).reduce(function(s,g){return s+g.length;},0);
+  document.getElementById("cer-cnt").textContent=total;
+
+  CATS_CER.forEach(function(c){groups[c.id].sort(function(a,b){return a.n.localeCompare(b.n,"pt-BR");});});
+  buildCerFilters(groups);
+
+  var html="";
+  CATS_CER.forEach(function(cat){
+    if(!cerFilters[cat.id])return;
+    var grp=groups[cat.id];
+    if(!grp.length)return;
+    var s=csty(cat.id);
+    html+='<div class="cer-group"><div class="cer-gh" style="color:'+s.dot+'">'+cat.label+' — '+grp.length+' presente'+(grp.length>1?"s":"")+'</div>'
+      +grp.map(function(p){
+        return '<div class="cc" style="background:'+s.bg+';border:1px solid '+s.bc+';border-left-color:'+s.dot+'">'
+          +'<div class="cd" style="background:'+s.dot+'"></div>'
+          +'<div style="flex:1;min-width:0"><div class="cn">'+p.n+'</div>'
+          +'<div class="cs2">'+p.c+(p.t?' · ⏱ '+p.t:'')+'</div></div>'
+          +'<div class="cc-badge" style="background:'+s.bg+';color:'+s.tc+';border-color:'+s.bc+'">'+cat.label+'</div>'
+          +'</div>';
+      }).join("")+"</div>";
+  });
+  document.getElementById("cer-list").innerHTML=html||'<div class="empty">Nenhuma presença registrada ainda.</div>';
+}
+
+function buildCerFilters(groups){
+  var div=document.getElementById("cer-filters");
+  div.innerHTML='<span style="font-size:11px;color:#aaa;margin-right:4px">Mostrar:</span>';
+  CATS_CER.forEach(function(cat){
+    if(!(groups&&(groups[cat.id]||[]).length))return;
+    var on=cerFilters[cat.id];
+    var s=csty(cat.id);
+    var btn=document.createElement("button");
+    btn.className="cf"+(on?" on":"");
+    btn.style.borderColor=on?s.dot:"#ccc";
+    btn.style.color=on?s.dot:"#aaa";
+    btn.innerHTML='<span class="cfd" style="background:'+(on?s.dot:"#ccc")+'"></span>'+cat.label;
+    btn.onclick=function(){cerFilters[cat.id]=!cerFilters[cat.id];buildCerFilters(groups);renderCer();};
+    div.appendChild(btn);
+  });
+}
+
+// ── RENDER ALMOÇO ────────────────────────────────────────────────────────────
+function renderAl(){
+  var q=norm((document.getElementById("al-search").value||"").trim());
+  var vState=state.vouchers||{};
+  var totalEntregue=0;
+
+  var rows=ALL_SUBS.map(function(sub){
+    if(q&&!norm(sub).includes(q))return null;
+    var membros=SUBSECOES_DATA[sub];
+    var presentes=membros.filter(function(m){return isChecked(getKey(sub,m[0]));}).length;
+    var alocado=vState[sk(sub)+"___v"]||VOUCHERS_BASE[sub]||4;
+    var entregue=vState[sk(sub)+"___e"]||false;
+    if(entregue) totalEntregue+=alocado;
+    var sobra=alocado-presentes;
+    var sobraClass=sobra>0?"sobra-ok":sobra<0?"sobra-falta":"sobra-zero";
+    var sobraLabel=sobra>0?"+"+sobra+" sobram":sobra<0?sobra+" faltam":"exato";
+    return {sub,membros:membros.length,presentes,alocado,entregue,sobra,sobraClass,sobraLabel,key:sk(sub)};
+  }).filter(Boolean);
+
+  var saldo=232-totalEntregue;
+  document.getElementById("v-entregue").textContent=totalEntregue;
+  document.getElementById("v-saldo").textContent=saldo;
+  if(saldo<0){
+    document.getElementById("vs-alerta-box").style.display="";
+    document.getElementById("v-falta").textContent=Math.abs(saldo);
+    document.getElementById("v-saldo").textContent=0;
+  } else {
+    document.getElementById("vs-alerta-box").style.display="none";
+  }
+
+  document.getElementById("almoco-list").innerHTML=rows.map(function(r){
+    return '<div class="al-row'+(r.entregue?" done":""+"")+'">'
+      +'<div style="flex:1;min-width:0">'
+      +'<div class="al-sub">'+r.sub+'</div>'
+      +'<div class="al-info">'
+      +'<span>'+r.presentes+'/'+r.membros+' presentes</span>'
+      +'<span class="al-sobra '+r.sobraClass+'">'+r.sobraLabel+'</span>'
+      +'</div></div>'
+      +'<div class="al-voucher">'
+      +'<span style="font-size:11px;color:#888">vouchers:</span>'
+      +'<input type="number" min="1" max="20" value="'+r.alocado+'" id="v_'+r.key+'" onchange="updateVoucher(\''+r.key+'\',this.value)" style="'+(r.entregue?"opacity:.5":"")+'" '+(r.entregue?"disabled":"")+'/>'
+      +'<button class="btn-entregar'+(r.entregue?" done":"")+'" onclick="toggleEntregue(\''+r.key+'\',\''+r.alocado+'\')">'+(r.entregue?"✓ Entregue":"Entregar")+'</button>'
+      +'</div></div>';
+  }).join("");
+}
+
+function updateVoucher(key, val){
+  if(!state.vouchers)state.vouchers={};
+  state.vouchers[key+"___v"]=parseInt(val)||4;
+  renderAl();saveToFb();
+}
+function toggleEntregue(key, alocado){
+  if(!state.vouchers)state.vouchers={};
+  state.vouchers[key+"___e"]=!state.vouchers[key+"___e"];
+  renderAl();saveToFb();
+}
+
+// ── AÇÕES ────────────────────────────────────────────────────────────────────
+function render(){
+  renderCr();
+  if(activeTab==="cer")renderCer();
+  if(activeTab==="al")renderAl();
+}
+
+function toggle(key){
+  if(isChecked(key)){delete state.checkins[key];}
+  else{state.checkins[key]={checked:true,time:nowTime()};}
+  render();saveToFb();
+}
+function startEdit(key){editingKey=key;renderCr();}
+function cancelEdit(){editingKey=null;renderCr();}
+function saveEdit(key){
+  var nome=document.getElementById("edit-nome").value.trim();
+  if(!nome)return;
+  // Atualizar nome no BASE se possível
+  editingKey=null;renderCr();saveToFb();
+}
+
+function switchTab(t){
+  activeTab=t;
+  ["cr","cer","al"].forEach(function(id){
+    document.getElementById("tab-"+id).className="tab"+(t===id?" active":"");
+    document.getElementById("pane-"+id).className="pane"+(t===id?" active":"");
+  });
+  if(t==="cer")renderCer();
+  if(t==="al")renderAl();
+}
+
+var modalTipoVal="sub";
+function setTipo(t){
+  modalTipoVal=t;
+  ["sub","aut","ext"].forEach(function(id){
+    document.getElementById("tipo-"+id).className="tb"+(t===id?" ac":"");
+    document.getElementById("bloco-"+id).style.display=t===id?"block":"none";
+  });
+}
+
+function openModal(){
+  document.getElementById("m-nome").value="";
+  document.getElementById("m-cargo").value="";
+  document.getElementById("m-cargo-aut").value="";
+  document.getElementById("m-cargo-ext").value="";
+  setTipo("sub");
+  document.getElementById("modal").classList.add("open");
+  setTimeout(function(){document.getElementById("m-nome").focus();},50);
+}
+function closeModal(){document.getElementById("modal").classList.remove("open");}
+function confirmModal(){
+  var nome=document.getElementById("m-nome").value.trim();
+  if(!nome)return;
+  var cargo=document.getElementById("m-cargo").value.trim();
+  var uid="x"+Date.now()+Math.floor(Math.random()*9999);
+  var key;
+  if(modalTipoVal==="sub"){
+    var sub=document.getElementById("m-sub").value;
+    state.extras[uid]={nome:nome,cargo:cargo||"Membro",sub:sub};
+    key=sk("extra|||"+uid);
+  } else if(modalTipoVal==="aut"){
+    var cargo2=document.getElementById("m-cargo-aut").value.trim();
+    state.extras[uid]={nome:nome,cargo:cargo2||cargo||"Autoridade",sub:"Autoridade"};
+    key=sk("extra|||"+uid);
+  } else {
+    var cargo3=document.getElementById("m-cargo-ext").value.trim();
+    state.extras[uid]={nome:nome,cargo:cargo3||cargo||"Externo",sub:"Externo"};
+    key=sk("extra|||"+uid);
+  }
+  state.checkins[key]={checked:true,time:nowTime()};
+  closeModal();render();saveToFb();
+}
+
+function exportCSV(){
+  var rows=[["Subseção","Nome","Cargo","Horário"]];
+  AUTORIDADES.forEach(function(a){
+    var key=sk("aut|||"+a.n);
+    if(isChecked(key))rows.push(["Autoridade/Palestrante",a.n,a.c,getTime(key)||"—"]);
+  });
+  ALL_SUBS.forEach(function(sub){
+    SUBSECOES_DATA[sub].forEach(function(m){
+      var key=getKey(sub,m[0]);
+      if(isChecked(key))rows.push([sub,m[0],m[1],getTime(key)||"—"]);
+    });
+  });
+  Object.keys(state.extras||{}).forEach(function(uid){
+    var ex=state.extras[uid];
+    var key=sk("extra|||"+uid);
+    if(isChecked(key))rows.push([ex.sub||"Walk-in",ex.nome,ex.cargo||"",getTime(key)||"—"]);
+  });
+  var csv="\uFEFF"+rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(";");}).join("\n");
+  try{
+    var blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url;a.download="presencas_cja_"+new Date().toLocaleDateString("pt-BR").replace(/\//g,"-")+".csv";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},2000);
+  }catch(e){}
+}
+
+document.getElementById("list-area").addEventListener("click",function(e){
+  var btn=e.target.closest("[data-action]");
+  if(!btn)return;
+  var action=btn.dataset.action,key=btn.dataset.key;
+  if(action==="toggle")toggle(key);
+  if(action==="edit")startEdit(key);
+  if(action==="save-edit")saveEdit(key);
+});
+
+function saveToFb(){
+  if(!dbRef){console.warn("Firebase não disponível");return;}
+  if(saving)return;saving=true;setSt("sy");
+  dbRef.set({checkins:state.checkins,extras:state.extras,vouchers:state.vouchers||{}}).then(function(){
+    setSt("ok");
+  }).catch(function(e){
+    setSt("er");
+    document.getElementById("status-bar").textContent="ERRO: "+(e.message||e);
+    document.getElementById("status-bar").className="status-bar show";
+  }).finally(function(){saving=false;});
+}
+function setSt(s){
+  var dot=document.getElementById("sd"),st=document.getElementById("ss"),tm=document.getElementById("st");
+  dot.className="sd"+(s==="ok"?" ok":s==="sy"?" sy":" er");
+  st.textContent=s==="ok"?"Sincronizado":s==="sy"?"Salvando...":"Erro";
+  if(s==="ok")tm.textContent=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+}
+
+// ── FUNÇÕES GLOBAIS (acessíveis pelo onclick no HTML) ──────────────────────
+window.switchTab     = switchTab;
+window.openModal     = openModal;
+window.closeModal    = closeModal;
+window.confirmModal  = confirmModal;
+window.cancelEdit    = cancelEdit;
+window.exportCSV     = exportCSV;
+window.setTipo       = setTipo;
+window.updateVoucher = updateVoucher;
+window.toggleEntregue= toggleEntregue;
+window.renderCr      = renderCr;
+
+document.addEventListener('DOMContentLoaded', function(){
+  // Preencher select de subseções
+  var m_select = document.getElementById("m-sub");
+  ALL_SUBS.forEach(function(s){ var o=document.createElement("option"); o.textContent=s; m_select.appendChild(o); });
+
+  // Inicializar Firebase com try-catch para não quebrar em ambientes restritos
+  try {
+    firebase.initializeApp({
+      apiKey:"AIzaSyCrqbSl2NTz33MsAU2ZzclwGs41x2GkoMA",
+      authDomain:"credenciamento-colpres.firebaseapp.com",
+      databaseURL:"https://credenciamento-colpres-default-rtdb.firebaseio.com",
+      projectId:"credenciamento-colpres",
+      storageBucket:"credenciamento-colpres.firebasestorage.app",
+      messagingSenderId:"1025267833834",
+      appId:"1:1025267833834:web:a7c5e6bda6363545847093"
+    });
+    db = firebase.database();
+    dbRef = db.ref("credenciamento/cja-colpres-2025");
+    dbRef.on("value",function(snapshot){
+      var data=snapshot.val();
+      if(data){
+        state.checkins=data.checkins||{};
+        state.extras=data.extras||{};
+        state.vouchers=data.vouchers||{};
+      }
+      render();setSt("ok");
+    },function(e){setSt("er");console.error(e);});
+  } catch(e) {
+    console.warn("Firebase não disponível neste ambiente:", e.message);
+    setSt("er","Sem conexão Firebase");
+    render(); // renderiza a lista estática mesmo sem Firebase
+  }
+});
+</script>
+</body>
+</html>
