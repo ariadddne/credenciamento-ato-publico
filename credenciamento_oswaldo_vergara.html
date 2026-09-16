@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credenciamento — Comenda Oswaldo Vergara 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f0f8;color:#1a1a1a;font-size:15px}
+.app{max-width:820px;margin:0 auto;padding:1rem}
+.card{background:#fff;border-radius:14px;border:1px solid #ddd;overflow:hidden;margin-bottom:1rem}
+.banner{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.banner-title{color:#fff;font-size:17px;font-weight:700;flex:1}
+.banner-sub{color:#a0b4cc;font-size:11px;margin-top:2px}
+.hcnt{background:rgba(255,255,255,.15);border-radius:8px;padding:5px 12px;font-size:13px;color:#c8d8e8}
+.hcnt strong{color:#fff;font-weight:700}
+.tabs{display:flex;border-bottom:1px solid #e0e0e0;background:#f9f9f9}
+.tab{padding:.7rem 1.5rem;font-size:13px;font-weight:500;color:#888;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none}
+.tab:hover{color:#0f3460}
+.tab.active{color:#0f3460;border-bottom:2px solid #0f3460;background:#fff}
+.pane{display:none}.pane.active{display:block}
+.sr{padding:.65rem 1.25rem;border-bottom:1px solid #eee;display:flex;gap:8px}
+.sr input{flex:1;font-size:14px;padding:0 12px;height:38px;border-radius:8px;border:1px solid #ccc;outline:none}
+.sr input:focus{border-color:#0f3460;box-shadow:0 0 0 3px rgba(15,52,96,.12)}
+.btn-add{height:38px;padding:0 16px;font-size:13px;font-weight:500;border-radius:8px;border:1px solid #ccc;background:#fff;color:#0f3460;cursor:pointer}
+.btn-add:hover{background:#f0f4ff}
+.export-row{padding:.4rem 1.25rem 0;display:flex;justify-content:flex-end}
+.btn-exp{font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #ccc;background:#fff;color:#0f3460;cursor:pointer}
+.list{max-height:520px;overflow-y:auto}
+.grp{border-bottom:1px solid #f0f0f8}
+.gh{padding:.5rem 1.25rem;background:#f5f5fb;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ebebf5}
+.gi{width:24px;height:24px;border-radius:50%;background:#c8d0e8;color:#0f3460;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gn{font-size:12px;font-weight:700;color:#0f3460;text-transform:uppercase;letter-spacing:.04em;flex:1}
+.gb{font-size:11px;padding:2px 8px;border-radius:6px;border:1px solid #ddd;color:#888}
+.gb.ok{background:#E8F5E9;border-color:#81C784;color:#2E7D32}
+.ml{padding:.2rem 1.25rem .3rem}
+.mr{display:flex;align-items:center;gap:8px;padding:.45rem 0;border-bottom:1px solid #f8f8fc}
+.mr:last-child{border-bottom:none}
+.mi{flex:1;min-width:0}
+.mn{font-size:13px;color:#1a1a1a}
+.mn.chk{text-decoration:line-through;color:#aaa}
+.ct{font-size:11px;color:#777;margin-top:2px}
+.pill{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;font-weight:600}
+.pvoc{background:#E8EAF6;color:#3949AB;border:1px solid #9FA8DA}
+.paut{background:#F3E5F5;color:#7B1FA2;border:1px solid #D4A8E8}
+.p14{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9}
+.p17{background:#E8F5E9;color:#2E7D32;border:1px solid #81C784}
+.pausente{background:#FFF9C4;color:#6D5500;border:1px solid #FFE57F}
+.pwi{background:#FFF8E1;color:#8B6914;border:1px solid #FFE082}
+.ra{display:flex;gap:5px;flex-shrink:0}
+.btn{height:28px;padding:0 10px;font-size:12px;border-radius:7px;border:1px solid #ccc;background:#fff;color:#333;cursor:pointer}
+.btn:hover{background:#f5f5f5}
+.btn.bp{min-width:78px}
+.btn.done{background:#E8F5E9;border-color:#81C784;color:#2E7D32}
+.btn.ic{padding:0;width:28px;display:flex;align-items:center;justify-content:center}
+.er{padding:.4rem 0;border-bottom:1px solid #f8f8fc}
+.ef{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ef input,.ef select{font-size:12px;height:30px;border-radius:7px;border:1px solid #ccc;padding:0 8px;outline:none;flex:1;min-width:120px}
+.empty{padding:2rem;text-align:center;color:#aaa;font-size:14px}
+/* CERIMONIAL */
+.ch{padding:.9rem 1.25rem .75rem;border-bottom:1px solid #eee;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.ch-title{font-size:15px;font-weight:700;flex:1;color:#0f3460}
+.live{font-size:11px;padding:3px 10px;border-radius:6px;background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9}
+.cer-filters{padding:.5rem 1.25rem;border-bottom:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.cf{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid #ccc;background:#fff;font-size:12px;font-weight:500;color:#888;cursor:pointer;user-select:none}
+.cf .cfd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cf.on{border-color:currentColor}
+.cl{padding:.5rem 1.25rem 1rem;max-height:510px;overflow-y:auto}
+.cg{margin-bottom:14px}
+.cgh{padding:.4rem 0 .3rem;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;border-bottom:2px solid currentColor;margin-bottom:5px}
+.cc{display:flex;align-items:center;gap:12px;padding:.75rem 1rem;border-radius:10px;margin-bottom:4px;border-left:4px solid transparent}
+.cd{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.cn{font-size:16px;font-weight:700;color:#1a1a1a}
+.cs2{font-size:11px;color:#666;margin-top:3px;line-height:1.4}
+.cbadge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;flex-shrink:0;white-space:nowrap;border:1px solid transparent}
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:1.4rem;width:400px;max-width:95vw;max-height:90vh;overflow-y:auto;border:1px solid #ddd}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:1rem;color:#0f3460}
+.modal label{font-size:12px;color:#555;display:block;margin-bottom:3px;margin-top:10px}
+.modal input,.modal select{width:100%;font-size:13px;height:34px;border-radius:8px;border:1px solid #ccc;padding:0 10px;outline:none}
+.modal input:focus,.modal select:focus{border-color:#0f3460}
+.tipo-row{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap}
+.tb{flex:1;height:30px;font-size:12px;border-radius:7px;border:1px solid #ccc;background:#fff;color:#888;cursor:pointer;font-weight:500;min-width:80px}
+.tb.ac{background:#E3F2FD;border-color:#90CAF9;color:#0f3460}
+.ma{display:flex;gap:8px;margin-top:1.2rem}
+.ma button{flex:1;height:34px;font-size:13px;font-weight:600;border-radius:8px;border:1px solid #ccc;cursor:pointer}
+.mc{background:#fff;color:#888}
+.mk{background:#0f3460;border-color:#0f3460;color:#fff}
+.status-bar{background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:.6rem 1rem;font-size:13px;color:#8B6914;margin-bottom:1rem;display:none}
+.status-bar.show{display:block}
+.sync-bar{padding:.35rem 1.25rem;font-size:11px;color:#aaa;border-top:1px solid #eee;display:flex;gap:6px;align-items:center}
+.sd{width:6px;height:6px;border-radius:50%;background:#ccc;flex-shrink:0}
+.sd.ok{background:#2d7a4f}.sd.sy{background:#EF9F27}.sd.er{background:#E24B4A}
+/* MODAL CERTIFICADO */
+.overlay-cert{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
+.overlay-cert.open{display:flex}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="status-bar" id="status-bar"></div>
+<div class="card">
+  <div class="banner">
+    <div style="flex:1">
+      <div class="banner-title">Comenda Oswaldo Vergara 2026 — OAB/RS</div>
+      <div class="banner-sub">Credenciamento · 14h e 17h</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="hcnt">Presentes: <strong id="cnt-p">0</strong></div>
+      <div class="hcnt">Total: <strong id="cnt-t">0</strong></div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tab-cr" onclick="switchTab('cr')">Credenciamento</button>
+    <button class="tab" id="tab-cer" onclick="switchTab('cer')">Cerimonial</button>
+  </div>
+  <div class="pane active" id="pane-cr">
+    <div class="export-row"><button class="btn-exp" onclick="exportCSV()">⬇ Exportar presenças</button></div>
+    <div class="sr">
+      <input type="text" id="search" placeholder="Buscar por nome ou cargo..." autocomplete="off" spellcheck="false" oninput="renderCr()">
+      <button class="btn-add" onclick="openModal()">+ Adicionar</button>
+    </div>
+    <div class="list" id="list-area"><div class="empty">Conectando...</div></div>
+  </div>
+  <div class="pane" id="pane-cer">
+    <div class="ch">
+      <div class="ch-title">Presentes no evento</div>
+      <div class="hcnt" style="background:#E3F2FD;color:#0f3460">Total: <strong id="cer-cnt">0</strong></div>
+      <div class="live">ao vivo</div>
+    </div>
+    <div class="cer-filters" id="cer-filters"></div>
+    <div class="cl" id="cer-list"><div class="empty">Nenhuma presença registrada ainda.</div></div>
+  </div>
+  <div class="sync-bar">
+    <div class="sd" id="sd"></div>
+    <span id="ss">Conectando...</span>
+    <span style="flex:1"></span><span id="st"></span>
+  </div>
+</div>
+</div>
+
+<!-- MODAL ADICIONAR -->
+<div class="overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Adicionar participante</h3>
+    <div class="tipo-row">
+      <button class="tb ac" id="tipo-acomp" onclick="setTipo('acomp')">Acompanhante</button>
+      <button class="tb" id="tipo-hom" onclick="setTipo('hom')">Homenageado(a)</button>
+      <button class="tb" id="tipo-voc" onclick="setTipo('voc')">Autoridade</button>
+      <button class="tb" id="tipo-ext" onclick="setTipo('ext')">Outro</button>
+    </div>
+    <label>Nome completo</label>
+    <input type="text" id="m-nome" placeholder="Nome da pessoa" autocomplete="off">
+    <div id="bloco-acomp">
+      <label>Acompanhante de:</label>
+      <input type="text" id="m-homenageado" placeholder="Nome do(a) homenageado(a)" autocomplete="off" list="hom-list">
+      <datalist id="hom-list"></datalist>
+    </div>
+    <div id="bloco-hom" style="display:none">
+      <label>Sessão</label>
+      <select id="m-sessao"><option value="h14">14h</option><option value="h17">17h</option></select>
+    </div>
+    <div id="bloco-voc" style="display:none">
+      <label>Cargo / Instituição</label>
+      <input type="text" id="m-cargo-voc" placeholder="ex.: Conselheiro Federal" autocomplete="off">
+    </div>
+    <div id="bloco-ext" style="display:none">
+      <label>Cargo / Observação</label>
+      <input type="text" id="m-cargo-ext" placeholder="ex.: Convidado da mesa" autocomplete="off">
+    </div>
+    <div class="ma">
+      <button class="mc" onclick="closeModal()">Cancelar</button>
+      <button class="mk" onclick="confirmModal()">Adicionar e registrar presença</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+var db, dbRef;
+
+// ── CATEGORIAS CERIMONIAL ────────────────────────────────────────────────────
+var CATS = [
+  {id:"voc",   label:"Autoridades / Vocativo", dot:"#0f3460",bg:"#E3F2FD",tc:"#0f3460",bc:"#90CAF9"},
+  {id:"aut",   label:"Autoridades OAB/RS",     dot:"#1565C0",bg:"#EDF3FA",tc:"#1565C0",bc:"#B8D4F0"},
+  {id:"h14",   label:"Homenageados(as) 14h",   dot:"#2E7D32",bg:"#E8F5E9",tc:"#2E7D32",bc:"#81C784"},
+  {id:"h17",   label:"Homenageados(as) 17h",   dot:"#558B2F",bg:"#F1F8E9",tc:"#558B2F",bc:"#AED581"},
+  {id:"conv",  label:"Convidados(as)",          dot:"#00695C",bg:"#E0F2F1",tc:"#00695C",bc:"#80CBC4"},
+  {id:"acomp", label:"Acompanhantes",           dot:"#546E7A",bg:"#ECEFF1",tc:"#546E7A",bc:"#B0BEC5"},
+];
+function cs(id){ return CATS.find(function(c){return c.id===id;})||CATS[CATS.length-1]; }
+
+// ── AUTORIDADES ──────────────────────────────────────────────────────────────
+var AUTORIDADES = [
+// DIRETORIA OAB/RS — vocativo
+{n:"Leonardo Lamachia",c:"Presidente da OAB/RS",cat:"voc"},
+{n:"Claridê Chitolina Taffarel",c:"Vice-Presidente da OAB/RS",cat:"voc"},
+{n:"Ana Lúcia Kaercher Piccoli",c:"Secretária-Geral da OAB/RS",cat:"voc"},
+{n:"Regina Pereira Soares",c:"Secretária-Geral Adjunta da OAB/RS",cat:"voc"},
+{n:"Jorge Luiz Dias Fara",c:"Diretor Tesoureiro da OAB/RS",cat:"voc"},
+// ESA — Gerson vocativo, demais sem
+{n:"Gerson Fischmann",c:"Diretor-Geral da Escola Superior de Advocacia",cat:"voc"},
+{n:"Bruna Razera",c:"Vice-Diretora da Escola Superior de Advocacia",cat:"aut"},
+{n:"Graziela Cardoso Vanin",c:"Diretora de Cursos de Curta Duração da ESA",cat:"aut"},
+{n:"Michelle da Silva Guardati Vieira",c:"Diretora de Cursos de Curta Duração da ESA",cat:"aut"},
+{n:"Jair Pereira Coitinho",c:"Diretor de Cursos Permanentes da ESA",cat:"aut"},
+{n:"Fernanda Corrêa Osório",c:"Diretora de Cursos Permanentes da ESA",cat:"aut"},
+{n:"Gabriel Fraga Hamester",c:"Diretor de Interiorização e Grupos de Estudos da ESA",cat:"aut"},
+{n:"Renê Engroff",c:"Diretor de Interiorização e Grupos de Estudos da ESA",cat:"aut"},
+{n:"Cezar Augusto Giacobbo de Lima",c:"Diretor de Cursos EAD da ESA",cat:"aut"},
+{n:"Eliza Cerutti",c:"Diretora de Cursos EAD da ESA",cat:"aut"},
+{n:"Letícia Marques Padilha",c:"Diretora de Publicações Digitais da ESA",cat:"aut"},
+{n:"Marcos Eduardo Faes Eberhardt",c:"Diretor de Publicações Digitais da ESA",cat:"aut"},
+{n:"Alexandre Torres Petry",c:"Diretor de Inovação e Tecnologia da ESA",cat:"aut"},
+{n:"Dineia Anziliero Dal Pizzol",c:"Diretora de Inovação e Tecnologia da ESA",cat:"aut"},
+// EX-PRESIDENTES OAB/RS — vocativo
+{n:"Cléa Anna Maria Carpi da Rocha",c:"Ex-Presidente da OAB/RS e Medalha Rui Barbosa",cat:"voc"},
+{n:"Fernando Krieg da Fonseca",c:"Ex-Presidente da OAB/RS",cat:"voc"},
+{n:"Luiz Felipe Lima de Magalhães",c:"Ex-Presidente da OAB/RS",cat:"voc"},
+{n:"Claudio Pacheco Prates Lamachia",c:"Membro Honorário Vitalício e Ex-Presidente da OAB Nacional e da OAB/RS",cat:"voc"},
+{n:"Luiz Carlos Levenzon",c:"Ex-Presidente da OAB/RS",cat:"voc"},
+{n:"Marcelo Machado Bertoluci",c:"Ex-Presidente da OAB/RS",cat:"voc"},
+{n:"Renato da Costa Figueira",c:"Ex-Presidente da OAB/RS e Conselheiro Federal",cat:"voc"},
+// DIRETORIA CAARS — vocativo
+{n:"Neusa Maria Rolim Bastos",c:"Presidente da CAARS",cat:"voc"},
+{n:"Paula Grill",c:"Vice-Presidente da CAARS",cat:"voc"},
+{n:"Alessandra Glufke",c:"Secretária-Geral da CAARS",cat:"voc"},
+{n:"Juliano Sampaio Gonçalves",c:"Secretário-Geral Adjunto da CAARS",cat:"voc"},
+{n:"Matheus Portella Ayres Torres",c:"Tesoureiro da CAARS",cat:"voc"},
+// COOABCRED / IARGS — sem vocativo
+{n:"Jorge Maciel",c:"Presidente da Cooperativa de Crédito da Advocacia do RS",cat:"aut"},
+{n:"Sulamita Santos Cabral",c:"Presidente do IARGS e Conselheira Estadual",cat:"aut"},
+// CONSELHEIROS FEDERAIS — vocativo
+{n:"Greice Fonseca Stocker",c:"Conselheira Federal",cat:"voc"},
+{n:"Mariana Melara Reis",c:"Conselheira Federal",cat:"voc"},
+{n:"Pedro Zanette Alfonsin",c:"Conselheiro Federal",cat:"voc"},
+{n:"Rafael Braude Canterji",c:"Conselheiro Federal",cat:"voc"},
+{n:"Rosângela Maria Herzer dos Santos",c:"Conselheira Federal",cat:"voc"},
+// CORREGEDORIA — Maria Helena vocativo, demais sem
+{n:"Maria Helena Camargo Dornelles",c:"Corregedora-Geral da OAB/RS",cat:"voc"},
+{n:"Maria Ercilha Hotyn Gralha",c:"Corregedora Adjunta da OAB/RS",cat:"aut"},
+{n:"Josana Rosolen Rivoli",c:"Corregedora Adjunta da OAB/RS",cat:"aut"},
+{n:"Maricel Pereira de Lima",c:"Corregedora Adjunta da OAB/RS",cat:"aut"},
+{n:"Silvia Odete Medeiros Biasi",c:"Corregedora Adjunta da OAB/RS",cat:"aut"},
+// TED — sem vocativo
+{n:"Airton Ruschel",c:"Presidente do TED",cat:"aut"},
+{n:"Gabriel Lopes Moreira",c:"Vice-Presidente do TED",cat:"aut"},
+// CONSELHO PEDAGÓGICO ESA
+{n:"Bruno Nubens Barbosa Miragem",c:"Conselho Pedagógico da ESA",cat:"aut"},
+{n:"Simone Tassinari Cardoso Fleischmann",c:"Conselho Pedagógico da ESA",cat:"aut"},
+{n:"Claudia Lima Marques",c:"Conselho Pedagógico da ESA",cat:"aut"},
+{n:"Darci Guimarães Ribeiro",c:"Conselho Pedagógico da ESA",cat:"aut"},
+{n:"Laura Antunes de Mattos",c:"Conselho Pedagógico da ESA",cat:"aut"},
+{n:"Miguel Antonio Silveira Ramos",c:"Conselho Pedagógico da ESA",cat:"aut"},
+// COMISSÕES OAB/RS
+{n:"Maria Alice Seidel",c:"Presidente da CSI",cat:"aut"},
+{n:"Marcos Roberto de Lima Aguirre",c:"Presidente da CEEO",cat:"aut"},
+{n:"Domingos Henrique Baldini Martin",c:"Presidente da CDAP",cat:"aut"},
+{n:"Rui Wilson da Cruz Bitencourte",c:"Presidente da CFEP",cat:"aut"},
+// CONSELHEIROS ESTADUAIS
+{n:"Adaltro Cezar Santos de Lima",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Alessandra Moreira Boulanger",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Alexandre Chaves Barcellos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Alexandre Gehlen",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ana Catarina Dantas Fontes da Cunha Lexau",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ana Maria Brongar De Castro",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ana Maria Mattielo",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Andrea da Costa Campos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Andrea Fontura André",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Andrea Markus",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Anita Maria Klein da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Antonio Carmelo Zanette",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Antonio Cesar Peres da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Arícia Carolina Rosa dos Santos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Aristides de Pietro Neto",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Arodi de Lima Gomes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Artur da Fonseca Alvim",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Augusto Solano Lopes Costa",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Aurea Comelli Born",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Bianca Medran Moreira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Carlos Eduardo Braun",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Carlos Luiz Sioda Kremer",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Cintia Nascente Madruga",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"César Souza",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ciro Alberto Bay",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Claudia Sobreiro de Oliveira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Claudio Garighan da Silva Junior",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Cristian do Carmo Rios",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Daniel Júnior de Melo Barreto",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Dante Dal Castelli Neto",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Delma Silveira Ibias",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Denise Teresinha Pedroso Zilch",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ditmar Adalberto Strahl",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Edmilso Michelon",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Eduardo Ferreira Bandeira de Mello",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Eduardo Kucker Zaffari",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Eduardo Lemos Barbosa",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Elenice Girondi Koff",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Eliane Chalmes Magalhães",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Elizara Nunes Grzesczak",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Enri Endress Martins",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Fabiana Bica Machado",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Fabiana Lang Santos Cardoso",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Fabiane da Rosa Cavalcanti",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Fábio Scherer de Moura",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Felipe Moreira da Silva Teixeira da Paixão",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Filipe Pereira Mallmann",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Filipe Ribeiro Santos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Flavio Benvegnú Júnior",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Giovani Quadros Andrighi",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Glênio Cardoso Lopes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ivan Pareta de Oliveira Júnior",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Janaína Magali Cordeiro da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Jarbas Iran Ernandes de Brito",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Jefferson Luís Vicari",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Jeferson Rodrigues",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Jéssica Roland da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"João Antônio Soares Apoitia",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"João Herminio Marques de Carvalho e Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"João Ulisses Bica Machado Filho",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Jônatas Michels Ilha",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"José Fernando Lutz Coelho",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"José Ricardo Margutti",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Julia Pinto Loureiro",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Juliana Inácio Gonçalves",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Juliana Maria Ferreira de Noronha",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Juliano da Silva Dias",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Kalin Cogo Rodrigues",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Karina Contiero Silveira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Karina dos Santos Silveira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Karina Rodrigues Pacheco",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Keilly Gomes Amorim",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Laura Xavier da Costa Brewster",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Léa Denise Presser Potrick",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Leandro da Cruz Soares",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Leandro Pogorzelski",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Lêda Regina do Nascimento Moraes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Leonardo Ferreira Mello Vaz",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Leticia da Rosa dos Santos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Liane Bestetti",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luciana Rodrigues da Silva Martinez Buttelli",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luciano Benetti Corrêa da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luciano Hillebrand Feldmann",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luiza Pereira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luiz Augusto Gonçalves de Gonçalves",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luiz Felipe Mallmann de Magalhaes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luiz Fernando dos Santos Moreira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luiz Gustavo Heiss Schiessl",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Luiz Henrique Neves Pires",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Magda de Araujo Prates",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marçal dos Santos Diogo",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marcelo de Bittencourt Martins",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marcelo Godinho Marinho",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marcia Schwantes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marco Antônio Birnfeld",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marcos Pippi Fraga",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Maria Aparecida Bergamo Finger",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Maria Cristina Carrion Vidal de Oliveira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Maria de Fátima Zachia Paludo",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Maria Regina Wingert Abel",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Mariana Polydoro de Albuquerque Diefenthäler",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marilia Longo do Nascimento",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Marione Afonso",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Mateus da Silva Rosa Pereira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Mateus Marques Conceição",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Matheus Vasconcelos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Maximilia Silva de Paula",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Muriel Fernanda Ferreira Benites",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Nara Terezinha Piccinini da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Péricles Lamartine Palma da Costa",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Priscila dos Santos Vargas",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Priscila Homero Goncalves",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rafael de Freitas Valle Dresch",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rafael Korff Wagner",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Raimar Rodrigues Machado",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Regina Adylles Endler Guimaraes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Renan Adaime Duarte",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Renata Gabert de Souza",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Renata Mendes Santa Maria Machado",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Renata Santos da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ricardo Borges Ranzolin",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Ricardo Vogt de Oliveira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Roberta Schaun da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rodrigo Tonniges Puggina",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rogerio Vargas dos Santos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Roque Soares Reckziegel",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rosana Brogni Steinmetz Wainer",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rosana Matos Ferrer",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rosângela de Souza Mileski",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Roselaine dos Santos Esmério Chiavenato",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Rosemari Hofmeister",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Sandra Marisa Lameira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Sandro Ricardo Santos de Borba",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Silvia Bueno dos Santos",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Silvio Corrêa da Silva",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Simone dos Santos Nunes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Tania Regina Maciel Antunes",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Tatiana Marinho Moro",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Teresa Cristina Fernandes Moesch",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Tito Cláudio Moura Moreira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Valdir Florisbal Jung",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Vanessa Gonçalves Silveira",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Vicente Touguinha Antonacci",c:"Conselheiro(a) Estadual",cat:"aut"},
+{n:"Vilnei Pinheiro Sessim",c:"Conselheiro(a) Estadual",cat:"aut"},
+];
+
+// ── HOMENAGEADOS 14h ─────────────────────────────────────────────────────────
+var BASE = [
+{n:"Adão Conceição Dornelles Faraco",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"André Avelino Ribeiro Neto",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Antonio Janyr Dall Agnol Junior",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Antonio Paulo Carpes Antunes",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Aramis Schmitz Ferreira",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Avani Valéria Rigo Busato",c:"Homenageada — 14h",cat:"h14"},
+{n:"Bonaparte Lazarini Jobim",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Carlos Alberto do Amaral",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Celso Bernardi",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Cléa Anna Maria Carpi da Rocha",c:"Homenageada — 14h",cat:"h14"},
+{n:"Clecy Carnieletto Muller",c:"Homenageada — 14h",cat:"h14"},
+{n:"Doribio Grunevald",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Eduarda Botelho Garcia",c:"Homenageada — 14h",cat:"h14"},
+{n:"Eduardo Kroeff Machado Carrion",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Emilio Rothfuchs Neto",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Fernando Krieg da Fonseca",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Frederico Dias da Cruz",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Frederico Guilherme Guariglia",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Irineu Antonio Zart",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Janina Sobral de Rezende",c:"Homenageada — 14h",cat:"h14"},
+{n:"João Olavo Daltrozo",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Jose Bernardo de Medeiros Neto",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Léo Iolovitch",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Lourdes Veneranda Camaratta",c:"Homenageada — 14h",cat:"h14"},
+{n:"Luiz Afonso Silva Antunes",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Luiz Antonio Lopes",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Luiz Antônio Schmitt de Azevedo",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Luiz Henrique Behs Filho",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Maria do Horto Caillava dos Santos",c:"Homenageada — 14h",cat:"h14"},
+{n:"Milton José Munhoz Camargo",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Nielon José Meirelles Escouto",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Olga Myzak",c:"Homenageada — 14h",cat:"h14"},
+{n:"Oscar Breno Stahnke",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Oscar Maciel Trindade Netto",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Otacilio Lindemeyer Filho",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Paulo Sergio Diniz da Costa",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Raul Schmitt",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Romeu Carlos Alziro Gehlen",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Ronaldo Curi Terra",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Rosaly Brandalise Rizzon",c:"Homenageada — 14h",cat:"h14"},
+{n:"Salvador Horacio Vizzotto",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Sandro Marcelo Ferreira dos Santos",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Sérgio Leal Martinez",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Sérgio Roberto da Fontoura Juchem",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Silvio Ronaldo Santos de Moraes",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Tito Uranga",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Vera Maria Jacob de Fradera",c:"Homenageada — 14h",cat:"h14"},
+{n:"Vera Maria Reis da Cruz",c:"Homenageada — 14h",cat:"h14"},
+{n:"Vilson Darós",c:"Homenageado(a) — 14h",cat:"h14"},
+{n:"Wanda Marisa Gomes Siqueira",c:"Homenageada — 14h",cat:"h14"},
+{n:"Wolnei Guimarães Ribeiro",c:"Homenageado(a) — 14h",cat:"h14"},
+// Ausências justificadas 14h
+{n:"José Luiz Belan",c:"14h · Ausência justificada",cat:"h14",ausente:true},
+{n:"Lila Maria Lena Souza",c:"14h · Ausência justificada",cat:"h14",ausente:true},
+{n:"Roberto Ivo Soccol",c:"14h · Ausência justificada",cat:"h14",ausente:true},
+// HOMENAGEADOS 17h
+{n:"Afonso Celso Bandeira Martha",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Alexandre Lima Wunderlich",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"André Luís Sonntag",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Antônio Augusto Mayer dos Santos",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Antônio Prestes do Nascimento",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Braulio Dinarte da Silva Pinto",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Carlos Alberto de Oliveira",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Carlos Geraldo Bernardes Coelho Silva",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Carlos Henrique Moreira Becker",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Cláudio Leite Pimentel",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Claudio Roberto Olivaes Linhares",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Coralio Clementino Pedroso Gonçalves",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Darci Guimarães Ribeiro",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Darcy Rocha Martins Mano",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Eduardo Cunha Muller",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Eduardo Mariotti",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Eduardo Rodrigues Macluf",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Fabio Luiz Gomes",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Fernanda Barata Silva Brasil",c:"Homenageada — 17h",cat:"h17"},
+{n:"Francisco José Soller de Mattos",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Helena Maria Silva Coelho",c:"Homenageada — 17h",cat:"h17"},
+{n:"Igor Danilevicz",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Imar Santos Cabeleira",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Jane Catarina de Moraes Rossi",c:"Homenageada — 17h",cat:"h17"},
+{n:"João Elpidio de Almeida Neto",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Jorge Cesa Ferreira da Silva",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Jorge Renato dos Reis",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Jorge Santos Buchabqui",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"José Luis Mossmann Filho",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"José Pedro Pedrassani",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Juarez Freitas",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Julio Cesar de Menezes Spies",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Luiz Augusto de Mello Pires",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Luiz Henrique Cabanellos Schuh",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Magda Brossard Iolovitch",c:"Homenageada — 17h",cat:"h17"},
+{n:"Marco Antonio de Mattos",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Marco Aurélio Romeu Fernandes",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Miguel Antônio Silveira Ramos",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Miguel Tedesco Wedy",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Neiva Rosélia Seefeldt",c:"Homenageada — 17h",cat:"h17"},
+{n:"Nestor Fernando Hein",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Nilo Amaral Júnior",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Paulo Joel Bender Leal",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Paulo Roberto Cardoso Moreira de Oliveira",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Ricardo Munarski Jobim",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Rolf Hanssen Madaleno",c:"Homenageado(a) — 17h",cat:"h17"},
+{n:"Rossana Maria Lopes Brack",c:"Homenageada — 17h",cat:"h17"},
+{n:"Sulamita Terezinha Santos Cabral",c:"Homenageada — 17h",cat:"h17"},
+{n:"Valéria Tscheika",c:"Homenageada — 17h",cat:"h17"},
+// Ausências justificadas 17h
+{n:"Alexandre Gehlen",c:"17h · Ausência justificada",cat:"h17",ausente:true},
+{n:"Angela Edon Britto",c:"17h · Ausência justificada",cat:"h17",ausente:true},
+{n:"Itamar Antonio Moretti Basso",c:"17h · Ausência justificada",cat:"h17",ausente:true},
+{n:"José Arlindo Primieri",c:"17h · Ausência justificada",cat:"h17",ausente:true},
+{n:"Patrícia Alovisi",c:"17h · Ausência justificada",cat:"h17",ausente:true},
+// ACOMPANHANTES 14h
+{n:"Maria Eneida Alberton do Amaral",c:"Acompanhante de Carlos Alberto do Amaral",cat:"acomp"},
+{n:"Ricardo Alberton do Amaral",c:"Acompanhante de Carlos Alberto do Amaral",cat:"acomp"},
+{n:"Clarissa do Amaral Basso",c:"Acompanhante de Carlos Alberto do Amaral",cat:"acomp"},
+{n:"Lina Rosa Michienzi do Amaral",c:"Acompanhante de Carlos Alberto do Amaral",cat:"acomp"},
+{n:"Ana Maria Medeiros",c:"Acompanhante de Jose Bernardo de Medeiros Neto",cat:"acomp"},
+{n:"Fabiano Nogueira Pinto",c:"Acompanhante de Oscar Breno Stahnke",cat:"acomp"},
+{n:"Claudio Candiota Filho",c:"Acompanhante de Otacilio Lindemeyer Filho",cat:"acomp"},
+{n:"Marcelo Santini",c:"Acompanhante de Otacilio Lindemeyer Filho",cat:"acomp"},
+{n:"Fernando Jochan Cardozo",c:"Acompanhante de Otacilio Lindemeyer Filho",cat:"acomp"},
+{n:"Alexandre Reichel Lindemeyer",c:"Acompanhante de Otacilio Lindemeyer Filho",cat:"acomp"},
+{n:"Juvêncio Royes Jr",c:"Acompanhante de Otacilio Lindemeyer Filho",cat:"acomp"},
+{n:"Daniela Beatriz Barletta",c:"Acompanhante de Sandro Marcelo Ferreira dos Santos",cat:"acomp"},
+{n:"Brenda Machado Pinós",c:"Acompanhante de Sandro Marcelo Ferreira dos Santos",cat:"acomp"},
+{n:"João Batista Poersch Ribeiro",c:"Acompanhante de Wolnei Guimarães Ribeiro",cat:"acomp"},
+// ACOMPANHANTES 17h
+{n:"Fabiane Cavalcanti",c:"Acompanhante de Alexandre Lima Wunderlich",cat:"acomp"},
+{n:"Cloá Madelene Steffen",c:"Acompanhante de Carlos Alberto de Oliveira",cat:"acomp"},
+{n:"Rosa Maria Moschini Becker",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"Guilherme Moschini Becker",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"André Moschini Becker",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"Natacha Henemann Becker",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"Fernanda Moreira Becker",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"Augusto Moreira Becker",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"Manuela Wolff Freitas",c:"Acompanhante de Carlos Henrique Moreira Becker",cat:"acomp"},
+{n:"Jairo Jose Reck",c:"Acompanhante de Claudio Roberto Olivaes Linhares",cat:"acomp"},
+{n:"Giovane Spanner",c:"Acompanhante de Claudio Roberto Olivaes Linhares",cat:"acomp"},
+{n:"Lígia Maria Barata Silva Brasil",c:"Acompanhante de Fernanda Barata Silva Brasil",cat:"acomp"},
+{n:"Gabriela Pandolfo Coelho",c:"Acompanhante de Helena Maria Silva Coelho",cat:"acomp"},
+{n:"Gabriel Moreira",c:"Acompanhante de Helena Maria Silva Coelho",cat:"acomp"},
+{n:"Geraldo Antônio",c:"Acompanhante de Jane Catarina de Moraes Rossi",cat:"acomp"},
+{n:"Matheus da Silva Reis",c:"Acompanhante de Jorge Renato dos Reis",cat:"acomp"},
+{n:"Mateus Schoenherr",c:"Acompanhante de Jorge Renato dos Reis",cat:"acomp"},
+{n:"Tania Maria Silva Spies",c:"Acompanhante de Julio Cesar de Menezes Spies",cat:"acomp"},
+{n:"José Felipe Silva Spies",c:"Acompanhante de Julio Cesar de Menezes Spies",cat:"acomp"},
+{n:"Rosaura Silva Spies",c:"Acompanhante de Julio Cesar de Menezes Spies",cat:"acomp"},
+{n:"Eliton Dalmoro",c:"Acompanhante de Julio Cesar de Menezes Spies",cat:"acomp"},
+{n:"Lorenzo Spies Dalmoro",c:"Acompanhante de Julio Cesar de Menezes Spies",cat:"acomp"},
+{n:"Vitório Spies Dalmoro",c:"Acompanhante de Julio Cesar de Menezes Spies",cat:"acomp"},
+{n:"Gizeli Belloli",c:"Acompanhante de Luiz Henrique Cabanellos Schuh",cat:"acomp"},
+{n:"Henrique Belloli Schuh",c:"Acompanhante de Luiz Henrique Cabanellos Schuh",cat:"acomp"},
+{n:"Daniele Donida",c:"Acompanhante de Miguel Tedesco Wedy",cat:"acomp"},
+{n:"Rosane Pousada de Oliveira",c:"Acompanhante de Neiva Rosélia Seefeldt",cat:"acomp"},
+{n:"Elisabete Vicari",c:"Acompanhante de Valéria Tscheika",cat:"acomp"},
+{n:"Maira S. Belleboni",c:"Acompanhante de Valéria Tscheika",cat:"acomp"},
+{n:"Rosane Spessatto",c:"Acompanhante de Valéria Tscheika",cat:"acomp"},
+];
+
+// ── FUNÇÕES ──────────────────────────────────────────────────────────────────
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+function sk(s){return s.replace(/[.#$\/\[\]'"]/g,"_");}
+function getKeyA(a){return sk("aut|||"+a.n);}
+function getKeyB(b){return sk("hom|||"+b.n);}
+function isChecked(key){var v=state.checkins[key];return v===true||(v&&v.checked);}
+function getTime(key){var v=state.checkins[key];return (v&&v.time)?v.time:(v===true?"—":null);}
+function nowTime(){return new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});}
+
+var state={checkins:{},extras:{}};
+var editingKey=null;
+var activeTab="cr";
+var cerFilters={};
+CATS.forEach(function(c){cerFilters[c.id]=true;});
+var saving=false;
+var modalTipoVal="acomp";
+
+function allItems(){
+  var list=[];
+  AUTORIDADES.forEach(function(a){
+    list.push({n:a.n,c:a.c,cat:a.cat,key:getKeyA(a),tipo:"aut"});
+  });
+  BASE.forEach(function(b){
+    list.push({n:b.n,c:b.c,cat:b.cat,key:getKeyB(b),tipo:"base",ausente:!!b.ausente});
+  });
+  Object.keys(state.extras||{}).forEach(function(uid){
+    var ex=state.extras[uid];
+    list.push({n:ex.nome,c:ex.cargo,cat:ex.cat||"acomp",key:sk("extra|||"+uid),tipo:"extra",uid:uid});
+  });
+  return list;
+}
+
+function renderCr(){
+  var q=norm((document.getElementById("search").value||"").trim());
+  var items=allItems();
+  var total=0,chkd=0;
+  items.forEach(function(m){total++;if(isChecked(m.key))chkd++;});
+  document.getElementById("cnt-p").textContent=chkd;
+  document.getElementById("cnt-t").textContent=total;
+
+  var groups={};
+  var catOrder=["voc","aut","h14","h17","acomp","conv"];
+  catOrder.forEach(function(id){groups[id]=[];});
+  items.forEach(function(m){
+    var cat=m.cat||"acomp";
+    var match=!q||(norm(m.n).includes(q)||norm(m.c).includes(q));
+    if(match) (groups[cat]||groups["conv"]).push(m);
+  });
+
+  var html="";
+  catOrder.forEach(function(catId){
+    var grp=groups[catId];
+    if(!grp.length)return;
+    var s=cs(catId);
+    var chkG=grp.filter(function(m){return isChecked(m.key);}).length;
+    var rows=grp.map(function(m){
+      var chk=isChecked(m.key);
+      if(editingKey===m.key){
+        return '<div class="er"><div class="ef">'
+          +'<input type="text" id="edit-nome" value="'+m.n.replace(/"/g,"&quot;")+'" autocomplete="off">'
+          +'<button class="btn" style="background:#0f3460;border-color:#0f3460;color:#fff" data-action="save-edit" data-key="'+m.key+'">Salvar</button>'
+          +'<button class="btn" onclick="cancelEdit()">✕</button>'
+          +'</div></div>';
+      }
+      var tags="";
+      if(m.cat==="voc") tags+='<span class="pill pvoc">vocativo</span>';
+      else if(m.cat==="aut") tags+='<span class="pill paut">autoridade</span>';
+      else if(m.cat==="h14") tags+='<span class="pill p14">14h</span>';
+      else if(m.cat==="h17") tags+='<span class="pill p17">17h</span>';
+      if(m.ausente) tags+='<span class="pill pausente">ausência justificada</span>';
+      if(m.tipo==="extra") tags+='<span class="pill pwi">walk-in</span>';
+      var t=chk&&getTime(m.key)?'<span style="font-size:11px;color:#aaa;margin-left:5px">⏱ '+getTime(m.key)+'</span>':"";
+      return '<div class="mr"><div class="mi">'
+        +'<span class="mn'+(chk?" chk":"")+'">'+m.n+tags+'</span>'+t
+        +'<div class="ct">'+m.c+'</div></div>'
+        +'<div class="ra">'
+        +'<button class="btn bp'+(chk?" done":"")+'" data-action="toggle" data-key="'+m.key+'">'+(chk?"Presente":"Registrar")+'</button>'
+        +'<button class="btn ic" data-action="edit" data-key="'+m.key+'">✏</button>'
+        +'</div></div>';
+    }).join("");
+    var catLabel={voc:"Autoridades / Vocativo",aut:"Autoridades OAB/RS",h14:"Homenageados(as) 14h",h17:"Homenageados(as) 17h",acomp:"Acompanhantes",conv:"Convidados"};
+    html+='<div class="grp"><div class="gh">'
+      +'<div class="gi" style="background:'+s.bg+';color:'+s.tc+'">'+catLabel[catId][0]+'</div>'
+      +'<div class="gn" style="color:'+s.dot+'">'+catLabel[catId]+'</div>'
+      +'<div class="gb'+(chkG===grp.length&&grp.length>0?" ok":"")+'">'+chkG+'/'+grp.length+'</div>'
+      +'</div><div class="ml">'+rows+'</div></div>';
+  });
+  document.getElementById("list-area").innerHTML=html||'<div class="empty">Nenhum resultado.</div>';
+}
+
+function renderCer(){
+  var items=allItems();
+  var present=items.filter(function(m){return isChecked(m.key);});
+  document.getElementById("cer-cnt").textContent=present.length;
+  var groups={};
+  CATS.forEach(function(c){groups[c.id]=[];});
+  present.forEach(function(m){var cat=m.cat||"acomp";if(groups[cat])groups[cat].push(m);});
+  CATS.forEach(function(cat){groups[cat.id].sort(function(a,b){return a.n.localeCompare(b.n,"pt-BR");});});
+  buildCerFilters(groups);
+  var html="";
+  CATS.forEach(function(cat){
+    if(!cerFilters[cat.id])return;
+    var grp=groups[cat.id];
+    if(!grp.length)return;
+    var s=cs(cat.id);
+    html+='<div class="cg"><div class="cgh" style="color:'+s.dot+'">'+cat.label+' — '+grp.length+' presente'+(grp.length>1?"s":"")+'</div>'
+      +grp.map(function(m){
+        var t=getTime(m.key);
+        return '<div class="cc" style="background:'+s.bg+';border:1px solid '+s.bc+';border-left-color:'+s.dot+'">'
+          +'<div class="cd" style="background:'+s.dot+'"></div>'
+          +'<div style="flex:1;min-width:0"><div class="cn">'+m.n+'</div>'
+          +'<div class="cs2">'+m.c+(t?' · ⏱ '+t:'')+'</div></div>'
+          +'<div class="cbadge" style="background:'+s.bg+';color:'+s.tc+';border-color:'+s.bc+'">'+cat.label+'</div>'
+          +'</div>';
+      }).join("")+"</div>";
+  });
+  document.getElementById("cer-list").innerHTML=html||'<div class="empty">Nenhuma presença registrada ainda.</div>';
+}
+
+function buildCerFilters(groups){
+  var div=document.getElementById("cer-filters");
+  div.innerHTML='<span style="font-size:11px;color:#aaa;margin-right:4px">Mostrar:</span>';
+  CATS.forEach(function(cat){
+    if(!(groups&&(groups[cat.id]||[]).length))return;
+    var on=cerFilters[cat.id];
+    var s=cs(cat.id);
+    var btn=document.createElement("button");
+    btn.className="cf"+(on?" on":"");
+    btn.style.borderColor=on?s.dot:"#ccc";
+    btn.style.color=on?s.dot:"#aaa";
+    btn.innerHTML='<span class="cfd" style="background:'+(on?s.dot:"#ccc")+'"></span>'+cat.label;
+    btn.onclick=function(){cerFilters[cat.id]=!cerFilters[cat.id];buildCerFilters(groups);renderCer();};
+    div.appendChild(btn);
+  });
+}
+
+function render(){renderCr();if(activeTab==="cer")renderCer();}
+
+function toggle(key){
+  if(isChecked(key)){delete state.checkins[key];}
+  else{state.checkins[key]={checked:true,time:nowTime()};}
+  render();saveToFb();
+}
+function startEdit(key){editingKey=key;renderCr();}
+function cancelEdit(){editingKey=null;renderCr();}
+function saveEdit(key){editingKey=null;renderCr();saveToFb();}
+
+function switchTab(t){
+  activeTab=t;
+  ["cr","cer"].forEach(function(id){
+    document.getElementById("tab-"+id).className="tab"+(t===id?" active":"");
+    document.getElementById("pane-"+id).className="pane"+(t===id?" active":"");
+  });
+  if(t==="cer")renderCer();
+}
+
+function setTipo(t){
+  modalTipoVal=t;
+  ["acomp","hom","voc","ext"].forEach(function(id){
+    var btn=document.getElementById("tipo-"+id);
+    var bloco=document.getElementById("bloco-"+id);
+    if(btn)btn.className="tb"+(t===id?" ac":"");
+    if(bloco)bloco.style.display=t===id?"":"none";
+  });
+}
+function openModal(){
+  document.getElementById("m-nome").value="";
+  if(document.getElementById("m-homenageado"))document.getElementById("m-homenageado").value="";
+  var dl=document.getElementById("hom-list");
+  if(dl){
+    dl.innerHTML="";
+    BASE.filter(function(b){return b.cat==="h14"||b.cat==="h17";}).forEach(function(b){
+      var o=document.createElement("option");o.value=b.n;dl.appendChild(o);
+    });
+  }
+  setTipo("acomp");
+  document.getElementById("modal").classList.add("open");
+  setTimeout(function(){document.getElementById("m-nome").focus();},50);
+}
+function closeModal(){document.getElementById("modal").classList.remove("open");}
+function confirmModal(){
+  var nome=document.getElementById("m-nome").value.trim();
+  if(!nome)return;
+  var uid="x"+Date.now()+Math.floor(Math.random()*9999);
+  var cat,cargo;
+  if(modalTipoVal==="acomp"){
+    var hom=(document.getElementById("m-homenageado")||{}).value||"";
+    cargo=hom.trim()?"Acompanhante de "+hom.trim():"Acompanhante";cat="acomp";
+  }else if(modalTipoVal==="hom"){
+    var sessao=document.getElementById("m-sessao").value;
+    cargo="Homenageado(a) — "+(sessao==="h14"?"14h":"17h");cat=sessao;
+  }else if(modalTipoVal==="voc"){
+    cargo=(document.getElementById("m-cargo-voc")||{}).value||"Autoridade";cat="voc";
+  }else{
+    cargo=(document.getElementById("m-cargo-ext")||{}).value||"Convidado(a)";cat="conv";
+  }
+  state.extras[uid]={nome:nome,cargo:cargo,cat:cat};
+  state.checkins[sk("extra|||"+uid)]={checked:true,time:nowTime()};
+  closeModal();render();saveToFb();
+}
+
+function exportCSV(){
+  var rows=[["Nome","Categoria","Cargo","Horário"]];
+  var catLabel={voc:"Autoridade/Vocativo",aut:"Autoridade",h14:"Homenageado 14h",h17:"Homenageado 17h",conv:"Convidado(a)",acomp:"Acompanhante"};
+  allItems().forEach(function(m){
+    if(isChecked(m.key))rows.push([m.n,catLabel[m.cat]||m.cat,m.c,getTime(m.key)||"—"]);
+  });
+  var csv="\uFEFF"+rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(";");}).join("\n");
+  try{
+    var blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url;a.download="presencas_ov_"+new Date().toLocaleDateString("pt-BR").replace(/\//g,"-")+".csv";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},2000);
+  }catch(e){}
+}
+
+document.addEventListener("click",function(e){
+  var btn=e.target.closest("[data-action]");
+  if(!btn)return;
+  var action=btn.dataset.action,key=btn.dataset.key;
+  if(action==="toggle")toggle(key);
+  if(action==="edit")startEdit(key);
+  if(action==="save-edit")saveEdit(key);
+});
+
+function saveToFb(){
+  if(!dbRef||saving)return;
+  saving=true;setSt("sy");
+  dbRef.set({checkins:state.checkins,extras:state.extras}).then(function(){
+    setSt("ok");
+  }).catch(function(e){
+    setSt("er");
+    document.getElementById("status-bar").textContent="ERRO: "+(e.message||e);
+    document.getElementById("status-bar").className="status-bar show";
+  }).finally(function(){saving=false;});
+}
+function setSt(s){
+  var dot=document.getElementById("sd"),st=document.getElementById("ss"),tm=document.getElementById("st");
+  dot.className="sd"+(s==="ok"?" ok":s==="sy"?" sy":" er");
+  st.textContent=s==="ok"?"Sincronizado":s==="sy"?"Salvando...":"Sem Firebase";
+  if(s==="ok")tm.textContent=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+}
+
+// Expor funções globais
+window.switchTab=switchTab;
+window.openModal=openModal;
+window.closeModal=closeModal;
+window.confirmModal=confirmModal;
+window.cancelEdit=cancelEdit;
+window.exportCSV=exportCSV;
+window.setTipo=setTipo;
+window.renderCr=renderCr;
+
+document.addEventListener("DOMContentLoaded",function(){
+  try{
+    firebase.initializeApp({
+      apiKey:"AIzaSyCrqbSl2NTz33MsAU2ZzclwGs41x2GkoMA",
+      authDomain:"credenciamento-colpres.firebaseapp.com",
+      databaseURL:"https://credenciamento-colpres-default-rtdb.firebaseio.com",
+      projectId:"credenciamento-colpres",
+      storageBucket:"credenciamento-colpres.firebasestorage.app",
+      messagingSenderId:"1025267833834",
+      appId:"1:1025267833834:web:a7c5e6bda6363545847093"
+    });
+    db=firebase.database();
+    dbRef=db.ref("credenciamento/oswaldo-vergara-2026");
+    dbRef.on("value",function(snapshot){
+      var data=snapshot.val();
+      if(data){state.checkins=data.checkins||{};state.extras=data.extras||{};}
+      render();setSt("ok");
+    },function(e){setSt("er");console.error(e);});
+  }catch(e){
+    console.warn("Firebase indisponível:",e.message);
+    setSt("er","Sem Firebase");
+    render();
+  }
+});
+</script>
+</body>
+</html>
